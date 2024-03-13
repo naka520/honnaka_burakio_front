@@ -2,15 +2,15 @@ import React, { useState, FormEvent } from "react";
 import "bulma/css/bulma.min.css";
 
 interface FormState {
-  userId: string;
-  password: string;
+  username: string;
+  hashed_password: string;
 }
 
 const TopPage: React.FC = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [formState, setFormState] = useState<FormState>({
-    userId: "",
-    password: "",
+    username: "",
+    hashed_password: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +41,7 @@ const TopPage: React.FC = () => {
                       className="input"
                       type="text"
                       placeholder="ユーザーID"
-                      value={formState.userId}
+                      value={formState.username}
                       onChange={handleChange}
                     />
                   </div>
@@ -57,7 +57,7 @@ const TopPage: React.FC = () => {
                       className="input"
                       type="password"
                       placeholder="パスワード"
-                      value={formState.password}
+                      value={formState.hashed_password}
                       onChange={handleChange}
                     />
                   </div>
