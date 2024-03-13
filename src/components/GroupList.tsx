@@ -11,8 +11,9 @@ interface GroupItem {
 
 // モックデータ
 const mockData: GroupItem[] = [
-  { id: 1, name: "営業部会議", type: "managed" },
-  { id: 2, name: "総務全体会議", type: "joined" },
+  { id: 1, name: "嶋田研究室", type: "managed" },
+  { id: 2, name: "生協理事", type: "joined" },
+  { id: 3, name: "編入生委員会", type: "joined" },
 ];
 
 const GroupList: React.FC = () => {
