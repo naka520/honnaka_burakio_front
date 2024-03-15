@@ -74,7 +74,7 @@ import React, { useState } from "react";
 import "bulma/css/bulma.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
+import { useNavigate } from "react-router-dom";
 interface GroupItem {
   id: number;
   name: string;
@@ -89,6 +89,7 @@ const mockData: GroupItem[] = [
 ];
 
 const GroupList: React.FC = () => {
+  const navigate = useNavigate();
   // グループタイプに基づいてリストを分ける
   const managedGroups = mockData.filter(group => group.type === "managed");
   const joinedGroups = mockData.filter(group => group.type === "joined");
@@ -106,12 +107,14 @@ const GroupList: React.FC = () => {
   const handleCreateGroup = () => {
     // グループ作成ページに遷移
     console.log("グループを作成する clicked");
+    navigate("/GroupCreate");
     // ページ遷移のロジックをここに実装します。
   };
 
   const handleJoinGroup = () => {
     // グループ参加ページに遷移
     console.log("グループに参加する clicked");
+    navigate("/GroupJoin");
     // ページ遷移のロジックをここに実装します。
   };
 
