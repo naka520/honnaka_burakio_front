@@ -1,69 +1,88 @@
-import React from "react";
+import React, { useState } from "react";
 import "bulma/css/bulma.min.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
-interface GroupItem {
-  id: number;
-  name: string;
-  type: "managed" | "joined";
-}
-
-// モックデータ
-const mockData: GroupItem[] = [
-  { id: 1, name: "嶋田研究室", type: "managed" },
-  { id: 2, name: "生協理事", type: "joined" },
-  { id: 3, name: "編入生委員会", type: "joined" },
-];
 
 const GroupCreate: React.FC = () => {
-  // グループタイプに基づいてリストを分ける
-  const managedGroups = mockData.filter(group => group.type === "managed");
-  const joinedGroups = mockData.filter(group => group.type === "joined");
+  const [groupData, setGroupData] = useState({
+    groupId: "",
+    groupName: "",
+    groupDesc: "",
+  });
 
-  const handleAddGroup = () => {
-    // グループ追加処理
-    console.log("Add group clicked");
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setGroupData({ ...groupData, [name]: value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(groupData);
+    // グループ作成処理をここに実装します
   };
 
   return (
     <div className="container">
-      <section className="section">
-        <div className="box">
-          <div className="level">
-            <div className="level-left">
-              <h1 className="title">グループ一覧</h1>
-            </div>
-            <div className="level-right">
-              <button className="button is-primary" onClick={handleAddGroup}>
-                <FontAwesomeIcon icon={faPlus} />
-              </button>
+      <div className="section">
+        <div className="columns is-centered">
+          <div className="column is-4">
+            <div className="card">
+              <p className="card-header-title">グループを作成する</p>
+              <div className="card-content">
+                <form onSubmit={handleSubmit}>
+                  <div className="field">
+                    <label className="label">グループID</label>
+                    <div className="control">
+                      <input
+                        className="input"
+                        type="text"
+                        name="groupId"
+                        value={groupData.groupId}
+                        onChange={handleInputChange}
+                        placeholder="グループID"
+                      />
+                    </div>
+                  </div>
+                  <div className="field">
+                    <label className="label">グループ名</label>
+                    <div className="control">
+                      <input
+                        className="input"
+                        type="text"
+                        name="groupName"
+                        value={groupData.groupName}
+                        onChange={handleInputChange}
+                        placeholder="グループ名"
+                      />
+                    </div>
+                  </div>
+                  <div className="field">
+                    <label className="label">グループ説明</label>
+                    <div className="control">
+                      <input
+                        className="input"
+                        type="text"
+                        name="groupDesc"
+                        value={groupData.groupDesc}
+                        onChange={handleInputChange}
+                        placeholder="グループ説明"
+                      />
+                    </div>
+                  </div>
+                  <div className="field">
+                    <div className="control">
+                      <button
+                        type="submit"
+                        className="button is-dark is-fullwidth"
+                      >
+                        グループを作成する
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-          <h2 className="title is-4">あなたが管理しているグループ</h2>
-          {managedGroups.map(group => (
-            <div
-              key={group.id}
-              className="box"
-              style={{ marginBottom: "10px" }}
-            >
-              {group.name}
-            </div>
-          ))}
-          <h2 className="title is-4" style={{ marginTop: "20px" }}>
-            あなたが参加しているグループ
-          </h2>
-          {joinedGroups.map(group => (
-            <div
-              key={group.id}
-              className="box"
-              style={{ marginBottom: "10px" }}
-            >
-              {group.name}
-            </div>
-          ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 };
