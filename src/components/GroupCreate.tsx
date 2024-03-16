@@ -4,8 +4,8 @@ import "bulma/css/bulma.min.css";
 const GroupCreate: React.FC = () => {
   const [groupData, setGroupData] = useState({
     groupId: "",
-    groupName: "",
-    groupDesc: "",
+    grouppassword: "",
+    groupname: "",
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +25,7 @@ const GroupCreate: React.FC = () => {
         <div className="columns is-centered">
           <div className="column is-4">
             <div className="card">
-              <p className="card-header-title">グループを作成する</p>
+              <p className="card-header-title">グループを作成</p>
               <div className="card-content">
                 <form onSubmit={handleSubmit}>
                   <div className="field">
@@ -42,28 +42,28 @@ const GroupCreate: React.FC = () => {
                     </div>
                   </div>
                   <div className="field">
-                    <label className="label">グループ名</label>
+                    <label className="label">パスワード</label>
                     <div className="control">
                       <input
                         className="input"
                         type="text"
                         name="groupName"
-                        value={groupData.groupName}
+                        value={groupData.grouppassword}
                         onChange={handleInputChange}
-                        placeholder="グループ名"
+                        placeholder="パスワード"
                       />
                     </div>
                   </div>
                   <div className="field">
-                    <label className="label">グループ説明</label>
+                    <label className="label">グループ名</label>
                     <div className="control">
                       <input
                         className="input"
                         type="text"
                         name="groupDesc"
-                        value={groupData.groupDesc}
+                        value={groupData.groupname}
                         onChange={handleInputChange}
-                        placeholder="グループ説明"
+                        placeholder="グループ名"
                       />
                     </div>
                   </div>
