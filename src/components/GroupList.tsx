@@ -104,14 +104,18 @@ const GroupList: React.FC = () => {
     setIsDropdownActive(!isDropdownActive);
   };
 
-  const handleCreateGroup = () => {
+  const handleCreateGroup = (event: React.MouseEvent) => {
+    // デフォルトのイベントをキャンセル
+    event.preventDefault();
     // グループ作成ページに遷移
     console.log("グループを作成する clicked");
     navigate("/GroupCreate");
     // ページ遷移のロジックをここに実装します。
   };
 
-  const handleJoinGroup = () => {
+  const handleJoinGroup = (event: React.MouseEvent) => {
+    // デフォルトのイベントをキャンセル
+    event.preventDefault();
     // グループ参加ページに遷移
     console.log("グループに参加する clicked");
     navigate("/GroupJoin");
