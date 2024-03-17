@@ -54,39 +54,31 @@ const GroupHome: React.FC = () => {
                       </div>
                     ))}
                   </div>
-                  <footer className="card-footer">
-                    <div className="card-footer-item">
-                      <button
-                        className="button is-link is-fullwidth"
-                        onClick={() => navigateToPage("/home")}
-                      >
-                        ホーム
-                      </button>
-                    </div>
-                    <div className="card-footer-item">
-                      <button
-                        className="button is-link is-fullwidth"
-                        onClick={() => navigateToPage("/explore")}
-                      >
-                        購入
-                      </button>
-                    </div>
-                    <div className="card-footer-item">
-                      <button
-                        className="button is-link is-fullwidth"
-                        onClick={() => navigateToPage("/profile")}
-                      >
-                        プロフィール
-                      </button>
-                    </div>
-                    <div className="card-footer-item">
-                      <button
-                        className="button is-link is-fullwidth"
-                        onClick={() => navigateToPage("/settings")}
-                      >
-                        設定
-                      </button>
-                    </div>
+                  <footer className="card-footer is-flex is-justify-content-space-around">
+                    <button
+                      className="button is-info"
+                      onClick={() => navigateToPage("/home")}
+                    >
+                      ホーム
+                    </button>
+                    <button
+                      className="button is-info"
+                      onClick={() => navigateToPage("/explore")}
+                    >
+                      購入
+                    </button>
+                    <button
+                      className="button is-info"
+                      onClick={() => navigateToPage("/profile")}
+                    >
+                      プロフィール
+                    </button>
+                    <button
+                      className="button is-info"
+                      onClick={() => navigateToPage("/settings")}
+                    >
+                      設定
+                    </button>
                   </footer>
                 </div>
               </div>
