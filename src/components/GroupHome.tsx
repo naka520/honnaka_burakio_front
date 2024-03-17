@@ -79,6 +79,7 @@ const GroupHome: React.FC = () => {
                     >
                       設定
                     </button>
+                    {/* ここをフッターにしておく */}
                   </div>
                 </div>
               </div>
