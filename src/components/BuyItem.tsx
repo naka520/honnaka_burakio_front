@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "bulma/css/bulma.min.css";
+import jsQR from "jsqr";
 
 interface Item {
   id: number;
@@ -14,16 +15,38 @@ const BuyItem: React.FC = () => {
     // React RouterのuseNavigateを使うか、window.locationを使ってページを移動します。
     console.log("Navigating to:", path);
   };
+
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [qrCode, setQrCode] = useState<string | null>(null);
 
   const activateCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" },
+      });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
+        scanQRCode();
       }
     } catch (err) {
       console.error("Error accessing the camera", err);
+    }
+  };
+
+  const scanQRCode = () => {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    if (context && videoRef.current) {
+      canvas.width = videoRef.current.videoWidth;
+      canvas.height = videoRef.current.videoHeight;
+      context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      const qrCodeResult = jsQR(imageData.data, canvas.width, canvas.height);
+      if (qrCodeResult) {
+        setQrCode(qrCodeResult.data);
+      } else {
+        requestAnimationFrame(scanQRCode); // Keep scanning for QR codes
+      }
     }
   };
 
@@ -48,18 +71,19 @@ const BuyItem: React.FC = () => {
                   <h2 className="title">購入</h2>
                   {/* 商品リストをカード形式で表示 */}
                   <div className="box has-text-centered">
-                    {/* カメラの映像を表示するビデオ要素 */}
                     <video
                       ref={videoRef}
                       style={{
-                        width: "100%", // 親要素に合わせて幅を設定
-                        aspectRatio: "1", // アスペクト比を1:1に設定
-                        objectFit: "cover", // コンテンツがボックスに収まるように調整
+                        width: "100%",
+                        aspectRatio: "1",
+                        objectFit: "cover",
                       }}
                       autoPlay
+                      playsInline
+                      muted
                       className="my-custom-camera-area"
-                      onClick={activateCamera} // ビデオをクリックするとカメラが再起動
                     />
+                    {qrCode && <p>QRコードの内容: {qrCode}</p>}
                   </div>
                   <footer className="my-custom-button card-footer is-flex is-justify-content-space-around">
                     <button
