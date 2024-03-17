@@ -95,7 +95,10 @@ const BuyItem: React.FC = () => {
                     {qrCodeData && <p>QRコードデータ: {qrCodeData}</p>}
                   </div>
                   <div className=" my-custom-button block">
-                    <button className=" my-custom-button button is-fullwidth ">
+                    <button
+                      className=" my-custom-button button is-fullwidth "
+                      onClick={() => navigate("/ItemList")}
+                    >
                       リストから選択する
                     </button>
                   </div>
