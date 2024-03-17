@@ -1,5 +1,6 @@
 import React from "react";
 import "bulma/css/bulma.min.css";
+import { useNavigate } from "react-router-dom";
 
 interface Item {
   id: number;
@@ -20,10 +21,7 @@ const items: Item[] = [
 ];
 
 const GroupHome: React.FC = () => {
-  const navigateToPage = (path: string) => {
-    // React RouterのuseNavigateを使うか、window.locationを使ってページを移動します。
-    console.log("Navigating to:", path);
-  };
+  const navigate = useNavigate();
   return (
     <div className="container">
       <div className="section">
@@ -57,25 +55,25 @@ const GroupHome: React.FC = () => {
                   <footer className="my-custom-button card-footer is-flex is-justify-content-space-around">
                     <button
                       className="button"
-                      onClick={() => navigateToPage("/home")}
+                      onClick={() => navigate("/GroupHome")}
                     >
                       ホーム
                     </button>
                     <button
                       className="button"
-                      onClick={() => navigateToPage("/explore")}
+                      onClick={() => navigate("/BuyItem")}
                     >
                       購入
                     </button>
                     <button
                       className="button "
-                      onClick={() => navigateToPage("/profile")}
+                      // onClick={() => navigateToPage("/profile")}
                     >
                       プロフィール
                     </button>
                     <button
                       className="button"
-                      onClick={() => navigateToPage("/settings")}
+                      // onClick={() => navigateToPage("/settings")}
                     >
                       設定
                     </button>

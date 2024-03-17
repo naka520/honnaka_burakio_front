@@ -1,29 +1,20 @@
 import React, { useRef, useEffect, useState } from "react";
 import "bulma/css/bulma.min.css";
 import jsQR from "jsqr";
-
-interface Item {
-  id: number;
-  name: string;
-  price: number;
-  // 商品の画像パスを追加する
-  imageUrl: string;
-}
+import { useNavigate } from "react-router-dom";
 
 const BuyItem: React.FC = () => {
-  const navigateToPage = (path: string) => {
-    // React RouterのuseNavigateを使うか、window.locationを使ってページを移動します。
-    console.log("Navigating to:", path);
-  };
-
+  const navigate = useNavigate();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [qrCode, setQrCode] = useState<string | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [qrCodeData, setQrCodeData] = useState<string | null>(null);
 
   const activateCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
+      const constraints: MediaStreamConstraints = {
         video: { facingMode: "environment" },
-      });
+      };
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         scanQRCode();
@@ -34,32 +25,50 @@ const BuyItem: React.FC = () => {
   };
 
   const scanQRCode = () => {
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
-    if (context && videoRef.current) {
-      canvas.width = videoRef.current.videoWidth;
-      canvas.height = videoRef.current.videoHeight;
-      context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-      const qrCodeResult = jsQR(imageData.data, canvas.width, canvas.height);
-      if (qrCodeResult) {
-        setQrCode(qrCodeResult.data);
-      } else {
-        requestAnimationFrame(scanQRCode); // Keep scanning for QR codes
+    if (videoRef.current && canvasRef.current) {
+      const context = canvasRef.current.getContext("2d");
+      if (
+        context &&
+        videoRef.current.readyState === videoRef.current.HAVE_ENOUGH_DATA
+      ) {
+        canvasRef.current.width = videoRef.current.videoWidth;
+        canvasRef.current.height = videoRef.current.videoHeight;
+        context.drawImage(
+          videoRef.current,
+          0,
+          0,
+          canvasRef.current.width,
+          canvasRef.current.height
+        );
+        const imageData = context.getImageData(
+          0,
+          0,
+          canvasRef.current.width,
+          canvasRef.current.height
+        );
+        const code = jsQR(imageData.data, imageData.width, imageData.height, {
+          inversionAttempts: "dontInvert",
+        });
+        if (code) {
+          setQrCodeData(code.data);
+        } else {
+          requestAnimationFrame(scanQRCode); // QRコードが見つからなければ繰り返す
+        }
       }
     }
   };
 
   useEffect(() => {
     activateCamera();
+    // コンポーネントのアンマウント時にカメラを停止
     return () => {
-      // コンポーネントのアンマウント時にカメラを停止
       if (videoRef.current?.srcObject) {
         const tracks = (videoRef.current.srcObject as MediaStream).getTracks();
         tracks.forEach(track => track.stop());
       }
     };
   }, []);
+
   return (
     <div className="container">
       <div className="section">
@@ -69,7 +78,6 @@ const BuyItem: React.FC = () => {
               <div className="card-content">
                 <div className="content">
                   <h2 className="title">購入</h2>
-                  {/* 商品リストをカード形式で表示 */}
                   <div className="box has-text-centered">
                     <video
                       ref={videoRef}
@@ -83,35 +91,41 @@ const BuyItem: React.FC = () => {
                       muted
                       className="my-custom-camera-area"
                     />
-                    {qrCode && <p>QRコードの内容: {qrCode}</p>}
+                    <canvas ref={canvasRef} style={{ display: "none" }} />
+                    {qrCodeData && <p>QRコードデータ: {qrCodeData}</p>}
                   </div>
-                  <footer className="my-custom-button card-footer is-flex is-justify-content-space-around">
-                    <button
-                      className="button"
-                      onClick={() => navigateToPage("/home")}
-                    >
-                      ホーム
+                  <div className=" my-custom-button block">
+                    <button className=" my-custom-button button is-fullwidth ">
+                      リストから選択する
                     </button>
-                    <button
-                      className="button"
-                      onClick={() => navigateToPage("/explore")}
-                    >
-                      購入
-                    </button>
-                    <button
-                      className="button "
-                      onClick={() => navigateToPage("/profile")}
-                    >
-                      プロフィール
-                    </button>
-                    <button
-                      className="button"
-                      onClick={() => navigateToPage("/settings")}
-                    >
-                      設定
-                    </button>
-                  </footer>
+                  </div>
                 </div>
+                <footer className="my-custom-button  card-footer is-flex is-justify-content-space-around">
+                  <button
+                    className="button"
+                    onClick={() => navigate("/GroupHome")}
+                  >
+                    ホーム
+                  </button>
+                  <button
+                    className="button"
+                    onClick={() => navigate("/BuyItem")}
+                  >
+                    購入
+                  </button>
+                  <button
+                    className="button "
+                    // onClick={() => navigateToPage("/profile")}
+                  >
+                    プロフィール
+                  </button>
+                  <button
+                    className="button"
+                    // onClick={() => navigateToPage("/settings")}
+                  >
+                    設定
+                  </button>
+                </footer>
               </div>
             </div>
           </div>
