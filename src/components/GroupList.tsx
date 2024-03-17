@@ -126,7 +126,7 @@ const GroupList: React.FC = () => {
     <div className="container">
       <section className="section">
         <div className="columns is-centered">
-          <div className="column is-half">
+          <div className=" column is-half my-custom-background">
             <div className="level">
               <div className="level-left">
                 <h1 className="title">グループ一覧</h1>
@@ -137,7 +137,7 @@ const GroupList: React.FC = () => {
                 >
                   <div className="dropdown-trigger">
                     <button
-                      className="button is-primary"
+                      className="button my-custom-graycolor1"
                       aria-haspopup="true"
                       aria-controls="dropdown-menu"
                       onClick={handleAddGroupClick}
@@ -171,7 +171,7 @@ const GroupList: React.FC = () => {
               {managedGroups.map(group => (
                 <div
                   key={group.id}
-                  className="card"
+                  className="card my-custom-list"
                   style={{ marginBottom: "10px" }}
                 >
                   <div className="card-content">{group.name}</div>
@@ -185,7 +185,7 @@ const GroupList: React.FC = () => {
               {joinedGroups.map(group => (
                 <div
                   key={group.id}
-                  className="card"
+                  className="card my-custom-list"
                   style={{ marginBottom: "10px" }}
                 >
                   <div className="card-content">{group.name}</div>

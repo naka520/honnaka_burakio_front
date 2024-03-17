@@ -6,6 +6,7 @@ import GroupList from "./components/GroupList";
 import GroupCreate from "./components/GroupCreate";
 import GroupJoin from "./components/GroupJoin";
 import GroupHome from "./components/GroupHome";
+import BuyItem from "./components/BuyItem";
 const App: React.FC = () => {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ const App: React.FC = () => {
         <Route path="/GroupCreate" element={<GroupCreate />} />
         <Route path="/GroupJoin" element={<GroupJoin />} />
         <Route path="/GroupHome" element={<GroupHome />} />
+        <Route path="/BuyItem" element={<BuyItem />} />
         {/* 以下のコメントアウトされたルートも、必要に応じて修正してください */}
         {/* <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> */}

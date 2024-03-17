@@ -22,8 +22,8 @@ const GroupCreate: React.FC = () => {
   return (
     <div className="container">
       <div className="section">
-        <div className="columns is-centered">
-          <div className="column is-4">
+        <div className="columns is-centered ">
+          <div className="column is-4 ">
             <div className="card">
               <p className="card-header-title">グループを作成</p>
               <div className="card-content">

@@ -27,7 +27,7 @@ const TopPage: React.FC = () => {
       <div className="section">
         <div className="columns is-centered">
           <div className="column is-4">
-            <div className="box">
+            <div className="my-custom-background box">
               <h1 className="title has-text-centered">サービス名</h1>
               <form onSubmit={handleSubmit}>
                 <div className="field">
