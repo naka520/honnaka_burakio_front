@@ -6,6 +6,7 @@ import GroupCreate from "./components/GroupCreate";
 import GroupJoin from "./components/GroupJoin";
 import GroupHome from "./components/GroupHome";
 import BuyItem from "./components/BuyItem";
+import ItemEditList from "./components/ItemEditList"
 import ItemList from "./components/ItemList";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
@@ -21,6 +22,7 @@ const App: React.FC = () => {
         <Route path="/GroupHome" element={<GroupHome />} />
         <Route path="/BuyItem" element={<BuyItem />} />
         <Route path="/ItemList" element={<ItemList />} />
+        <Route path="/ItemEditList" element={<ItemEditList />} />
         {/* 以下のコメントアウトされたルートも、必要に応じて修正してください */}
         {/* <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> */}

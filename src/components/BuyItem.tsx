@@ -141,6 +141,7 @@
 // export default BuyItem;
 
 import React, { useRef, useEffect, useState } from "react";
+import Footer from './Footer'
 import "bulma/css/bulma.min.css";
 import {
   BrowserMultiFormatReader,
@@ -244,22 +245,7 @@ const BuyItem: React.FC = () => {
                     </button>
                   </div>
                 </div>
-                <footer className="my-custom-button card-footer is-flex is-justify-content-space-around">
-                  <button
-                    className="button"
-                    onClick={() => navigate("/GroupHome")}
-                  >
-                    ホーム
-                  </button>
-                  <button
-                    className="button"
-                    onClick={() => navigate("/BuyItem")}
-                  >
-                    購入
-                  </button>
-                  <button className="button">プロフィール</button>
-                  <button className="button">設定</button>
-                </footer>
+                <Footer />
               </div>
             </div>
           </div>

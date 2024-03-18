@@ -24,7 +24,7 @@ const categories = items.reduce((acc: string[], item) => {
   return acc;
 }, []);
 
-const ItemList: React.FC = () => {
+const ItemEditList: React.FC = () => {
   const [isSortMenuActive, setIsSortMenuActive] = useState(false);
   const navigate = useNavigate();
   const handleSortSelection = (sortType: string) => {
@@ -41,7 +41,7 @@ const ItemList: React.FC = () => {
             <div className="card">
               <div className="card-content">
                 <div className="content">
-                  <h2 className="title">リストから選択</h2>
+                  <h2 className="title">リストから編集</h2>
                   <div className="my-custom-button">
                     <button
                       className="my-custom-button button is-fullwidth mt-4"
@@ -126,6 +126,7 @@ const ItemList: React.FC = () => {
                   ))}
                 </div>
               </div>
+              {/* ナビゲーションボタン */}
               <Footer />
             </div>
           </div>
@@ -135,4 +136,4 @@ const ItemList: React.FC = () => {
   );
 };
 
-export default ItemList;
+export default ItemEditList;
