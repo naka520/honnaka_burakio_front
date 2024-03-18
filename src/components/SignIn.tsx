@@ -1,4 +1,5 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "bulma/css/bulma.min.css";
 
 interface FormState {
@@ -6,8 +7,7 @@ interface FormState {
   hashed_password: string;
 }
 
-const TopPage: React.FC = () => {
-  const [isSignIn, setIsSignIn] = useState(true);
+const SignIn: React.FC = () => {
   const [formState, setFormState] = useState<FormState>({
     username: "",
     hashed_password: "",
@@ -19,15 +19,15 @@ const TopPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Authentication logic would go here
     console.log(formState);
   };
+
   return (
     <div className="container">
       <div className="section">
         <div className="columns is-centered">
           <div className="column is-4">
-            <div className="my-custom-background box">
+            <div className="box">
               <h1 className="title has-text-centered">サービス名</h1>
               <form onSubmit={handleSubmit}>
                 <div className="field">
@@ -37,7 +37,7 @@ const TopPage: React.FC = () => {
                   <div className="control">
                     <input
                       id="userId"
-                      name="userId"
+                      name="username"
                       className="input"
                       type="text"
                       placeholder="ユーザーID"
@@ -53,7 +53,7 @@ const TopPage: React.FC = () => {
                   <div className="control">
                     <input
                       id="password"
-                      name="password"
+                      name="hashed_password"
                       className="input"
                       type="password"
                       placeholder="パスワード"
@@ -67,30 +67,13 @@ const TopPage: React.FC = () => {
                     <button
                       type="submit"
                       className="button is-fullwidth is-dark"
-                      onMouseDown={e =>
-                        e.currentTarget.classList.add("is-light")
-                      }
-                      onMouseUp={e =>
-                        e.currentTarget.classList.remove("is-light")
-                      }
-                      onMouseLeave={e =>
-                        e.currentTarget.classList.remove("is-light")
-                      }
                     >
-                      {isSignIn ? "サインイン" : "サインアップ"}
+                      サインイン
                     </button>
                   </div>
                 </div>
-                <div className="field">
-                  <div className="control">
-                    <button
-                      type="button"
-                      className="button is-fullwidth"
-                      onClick={() => setIsSignIn(!isSignIn)}
-                    >
-                      {isSignIn ? "サインアップ" : "サインイン"}
-                    </button>
-                  </div>
+                <div className="has-text-centered">
+                  <Link to="/">サインアップはこちら</Link>
                 </div>
               </form>
             </div>
@@ -101,4 +84,4 @@ const TopPage: React.FC = () => {
   );
 };
 
-export default TopPage;
+export default SignIn;
