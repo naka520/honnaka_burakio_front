@@ -179,6 +179,7 @@ const GroupList: React.FC = () => {
   };
 
   const handleGroupClick = (uuid: string) => {
+    localStorage.setItem("selectedGroupUuid", uuid);
     navigate(`/GroupHome/${uuid}`);
   };
 
