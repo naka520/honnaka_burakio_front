@@ -127,10 +127,7 @@ const ItemList: React.FC = () => {
               </div>
               {/* ナビゲーションボタン */}
               <footer className="my-custom-button  card-footer is-flex is-justify-content-space-around">
-                <button
-                  className="button"
-                  onClick={() => navigate("/GroupHome")}
-                >
+                <button className="button" onClick={() => navigate("/BuyItem")}>
                   ホーム
                 </button>
                 <button className="button" onClick={() => navigate("/BuyItem")}>
