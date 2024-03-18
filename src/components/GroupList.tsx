@@ -224,39 +224,51 @@ interface Me {
 
 const GroupList: React.FC = () => {
   const navigate = useNavigate();
-  // Stateの型も明示的にGroupItemの配列として定義
   const [groups, setGroups] = useState<Me[]>([]);
-  const [redirect, setRedirect] = useState(false);
+  const [isDropdownActive, setIsDropdownActive] = useState(false);
+
+  const handleAddGroupClick = () => {
+    setIsDropdownActive(!isDropdownActive);
+  };
+
+  const handleCreateGroup = (event: React.MouseEvent) => {
+    event.preventDefault();
+    navigate("/GroupCreate");
+  };
+
+  const handleJoinGroup = (event: React.MouseEvent) => {
+    event.preventDefault();
+    navigate("/GroupJoin");
+  };
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
     const endpointUrl =
-      "https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/"; // 適切なエンドポイントURLに置き換えてください
+      "https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/";
 
-    if (accessToken) {
-      console.log("OK");
-      axios
-        .get<Me[]>(endpointUrl, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .then(response => {
-          // response.dataの型が自動的にGroupItem[]と推論される
-          console.log("GETだぜ！");
-          setGroups(response.data);
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.error("APIリクエストエラー:", error);
-          navigate("/login");
-        });
-    } else {
+    if (!accessToken) {
       navigate("/login");
+      return;
     }
+
+    console.log("OK");
+    axios
+      .get<Me[]>(endpointUrl, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(response => {
+        console.log("GETだぜ！");
+        setGroups(response.data);
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error("APIリクエストエラー:", error);
+        navigate("/login");
+      });
   }, [navigate]);
 
-  // 管理しているグループと参加しているグループを分けて表示
   const managedGroups = groups.filter(group => group.is_administrator);
   const joinedGroups = groups.filter(group => !group.is_administrator);
 
@@ -265,7 +277,43 @@ const GroupList: React.FC = () => {
       <section className="section">
         <div className="columns is-centered">
           <div className="column is-half my-custom-background">
-            <div className="level">{/* レベルヘッダーなど */}</div>
+            <div className="level-left">
+              <h1 className="title">グループ一覧</h1>
+            </div>
+            <div className="level-right">
+              <div
+                className={`dropdown ${isDropdownActive ? "is-active" : ""}`}
+              >
+                <div className="dropdown-trigger">
+                  <button
+                    className="button my-custom-graycolor1"
+                    aria-haspopup="true"
+                    aria-controls="dropdown-menu"
+                    onClick={handleAddGroupClick}
+                  >
+                    <FontAwesomeIcon icon={faPlus} />
+                  </button>
+                </div>
+                <div className="dropdown-menu" id="dropdown-menu" role="menu">
+                  <div className="dropdown-content">
+                    <a
+                      href="#"
+                      className="dropdown-item"
+                      onClick={handleCreateGroup}
+                    >
+                      グループを作成する
+                    </a>
+                    <a
+                      href="#"
+                      className="dropdown-item"
+                      onClick={handleJoinGroup}
+                    >
+                      グループに参加する
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div>
               <h2 className="title is-4">あなたが管理しているグループ</h2>
