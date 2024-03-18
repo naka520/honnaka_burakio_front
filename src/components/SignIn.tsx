@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "bulma/css/bulma.min.css";
 
-interface FormState {
+interface Users {
   username: string;
-  hashed_password: string;
+  password: string;
 }
 
 const SignIn: React.FC = () => {
-  const [formState, setFormState] = useState<FormState>({
+  const [formUsers, setFormUsers] = useState<Users>({
     username: "",
-    hashed_password: "",
+    password: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+    setFormUsers({ ...formUsers, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formState);
+    console.log(formUsers);
   };
 
   return (
@@ -41,7 +41,7 @@ const SignIn: React.FC = () => {
                       className="input"
                       type="text"
                       placeholder="ユーザーID"
-                      value={formState.username}
+                      value={formUsers.username}
                       onChange={handleChange}
                     />
                   </div>
@@ -57,7 +57,7 @@ const SignIn: React.FC = () => {
                       className="input"
                       type="password"
                       placeholder="パスワード"
-                      value={formState.hashed_password}
+                      value={formUsers.password}
                       onChange={handleChange}
                     />
                   </div>
