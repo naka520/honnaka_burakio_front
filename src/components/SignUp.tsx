@@ -161,12 +161,12 @@ const SignUp: React.FC = () => {
               <h1 className="title has-text-centered">サービス名</h1>
               <form onSubmit={handleCheck}>
                 <div className="field">
-                  <label className="label" htmlFor="userId">
+                  <label className="label" htmlFor="username">
                     ユーザーID
                   </label>
                   <div className="control">
                     <input
-                      id="userId"
+                      id="username"
                       name="username"
                       className="input"
                       type="text"
