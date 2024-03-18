@@ -107,24 +107,26 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "bulma/css/bulma.min.css";
 
-interface FormState {
+interface Users {
   username: string;
-  hashed_password: string;
+  password: string;
+  display_name: string;
 }
 
 const SignUp: React.FC = () => {
-  const [formState, setFormState] = useState<FormState>({
+  const [formUsers, setFormUsers] = useState<Users>({
     username: "",
-    hashed_password: "",
+    password: "",
+    display_name: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+    setFormUsers({ ...formUsers, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formState);
+    console.log(formUsers);
   };
 
   return (
@@ -146,7 +148,7 @@ const SignUp: React.FC = () => {
                       className="input"
                       type="text"
                       placeholder="ユーザーID"
-                      value={formState.username}
+                      value={formUsers.username}
                       onChange={handleChange}
                     />
                   </div>
@@ -162,7 +164,23 @@ const SignUp: React.FC = () => {
                       className="input"
                       type="password"
                       placeholder="パスワード"
-                      value={formState.hashed_password}
+                      value={formUsers.password}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="field">
+                  <label className="label" htmlFor="password">
+                    表示名
+                  </label>
+                  <div className="control">
+                    <input
+                      id="password"
+                      name="hashed_password"
+                      className="input"
+                      type="password"
+                      placeholder="表示名"
+                      value={formUsers.display_name}
                       onChange={handleChange}
                     />
                   </div>
