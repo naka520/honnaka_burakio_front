@@ -96,6 +96,10 @@ interface Users {
   password: string;
 }
 
+interface TokenResponse {
+  access_token: string;
+}
+
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState<string>("");
@@ -122,13 +126,14 @@ const SignIn: React.FC = () => {
     };
 
     try {
-      const response: AxiosResponse<string> = await axios.post<string>(
-        EndpoinUrl,
-        requestData
-      );
-      setAccesstoken(response.data); // response.data は string 型として扱われます
+      const response: AxiosResponse<TokenResponse> =
+        await axios.post<TokenResponse>(EndpoinUrl, requestData, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        });
+      setAccesstoken(response.data.access_token); // response.data は string 型として扱われます
+      localStorage.setItem("access_token", response.data.access_token);
       console.log("Success:", response);
-      navigate("/GroupHome");
+      navigate("/GroupList");
     } catch (error) {
       console.error("Error:", error);
     }
