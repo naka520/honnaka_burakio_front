@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from './Footer'
 import "bulma/css/bulma.min.css";
 import { useNavigate } from "react-router-dom";
 
@@ -52,32 +53,7 @@ const GroupHome: React.FC = () => {
                       </div>
                     ))}
                   </div>
-                  <footer className="my-custom-button card-footer is-flex is-justify-content-space-around">
-                    <button
-                      className="button"
-                      onClick={() => navigate("/GroupHome")}
-                    >
-                      ホーム
-                    </button>
-                    <button
-                      className="button"
-                      onClick={() => navigate("/BuyItem")}
-                    >
-                      購入
-                    </button>
-                    <button
-                      className="button "
-                      // onClick={() => navigateToPage("/profile")}
-                    >
-                      プロフィール
-                    </button>
-                    <button
-                      className="button"
-                      // onClick={() => navigateToPage("/settings")}
-                    >
-                      設定
-                    </button>
-                  </footer>
+                  <Footer />
                 </div>
               </div>
             </div>
