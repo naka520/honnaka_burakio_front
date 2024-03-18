@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Hanazome";
+  src: local("Hanazome"),
+    url("./hanazomefont/hanazomefont/hanazome.ttf") format("truetype");
+}
+
+.myComponentClass {
+  font-family: "Hanazome", sans-serif;
+}

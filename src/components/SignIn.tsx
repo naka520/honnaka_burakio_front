@@ -90,6 +90,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "bulma/css/bulma.min.css";
 import axios, { AxiosResponse } from "axios";
+import "../Myfont.css";
 
 interface Users {
   username: string;
@@ -145,7 +146,9 @@ const SignIn: React.FC = () => {
         <div className="columns is-centered">
           <div className="column is-4">
             <div className="box">
-              <h1 className="title has-text-centered">サービス名</h1>
+              <h1 className="myComponentClass title has-text-centered">
+                ちいみせ
+              </h1>
               <form onSubmit={handleCheck}>
                 <div className="field">
                   <label className="label" htmlFor="userId">
