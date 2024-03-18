@@ -106,7 +106,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "bulma/css/bulma.min.css";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 interface Users {
   username: string;
@@ -141,8 +141,11 @@ const SignUp: React.FC = () => {
     };
 
     try {
-      const response = await axios.post<string>(EndpoinUrl, requestData);
-      console.log("Success:", response);
+      const response: AxiosResponse<any> = await axios.post(
+        EndpoinUrl,
+        requestData
+      );
+      console.log("Success:", response.status);
       navigate("/SignIn");
     } catch (error) {
       console.error("Error:", error);
