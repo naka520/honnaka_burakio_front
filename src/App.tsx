@@ -6,7 +6,7 @@ import GroupCreate from "./components/GroupCreate";
 import GroupJoin from "./components/GroupJoin";
 import GroupHome from "./components/GroupHome";
 import BuyItem from "./components/BuyItem";
-import ItemEditList from "./components/ItemEditList"
+import ItemEditList from "./components/ItemEditList";
 import ItemList from "./components/ItemList";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
@@ -19,7 +19,7 @@ const App: React.FC = () => {
         <Route path="/GroupList" element={<GroupList />} />
         <Route path="/GroupCreate" element={<GroupCreate />} />
         <Route path="/GroupJoin" element={<GroupJoin />} />
-        <Route path="/GroupHome" element={<GroupHome />} />
+        <Route path="/GroupHome/:uuid" element={<GroupHome />} />
         <Route path="/BuyItem" element={<BuyItem />} />
         <Route path="/ItemList" element={<ItemList />} />
         <Route path="/ItemEditList" element={<ItemEditList />} />
