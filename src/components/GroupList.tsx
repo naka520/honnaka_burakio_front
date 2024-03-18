@@ -325,7 +325,6 @@ const GroupList: React.FC = () => {
                 >
                   <div className="card-content">
                     <p className="title is-5">{group.display_name}</p>
-                    <p className="subtitle is-6">{group.groupname}</p>
                   </div>
                 </div>
               ))}
@@ -341,7 +340,6 @@ const GroupList: React.FC = () => {
                 >
                   <div className="card-content">
                     <p className="title is-5">{group.display_name}</p>
-                    <p className="subtitle is-6">{group.groupname}</p>
                   </div>
                 </div>
               ))}
