@@ -104,8 +104,9 @@
 // export default SignUp;
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "bulma/css/bulma.min.css";
+import axios from "axios";
 
 interface Users {
   username: string;
@@ -114,19 +115,38 @@ interface Users {
 }
 
 const SignUp: React.FC = () => {
-  const [formUsers, setFormUsers] = useState<Users>({
-    username: "",
-    password: "",
-    display_name: "",
-  });
+  const navigate = useNavigate();
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [display_name, setDisplay_name] = useState<string>("");
+  // const [formUsers, setFormUsers] = useState<Users>({
+  //   username: "",
+  //   password: "",
+  //   display_name: "",
+  // });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormUsers({ ...formUsers, [e.target.name]: e.target.value });
-  };
+  const EndpoinUrl =
+    "https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/signup";
+  const handleCheck = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // フォームのデフォルトの送信を防止
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(formUsers);
+    if (!username || !password || !display_name) {
+      console.error("All fields are required");
+      return;
+    }
+    const requestData: Users = {
+      username: username,
+      password: password,
+      display_name: display_name,
+    };
+
+    try {
+      const response = await axios.post<string>(EndpoinUrl, requestData);
+      console.log("Success:", response);
+      navigate("/SignIn");
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -136,7 +156,7 @@ const SignUp: React.FC = () => {
           <div className="column is-4">
             <div className="box">
               <h1 className="title has-text-centered">サービス名</h1>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleCheck}>
                 <div className="field">
                   <label className="label" htmlFor="userId">
                     ユーザーID
@@ -148,8 +168,10 @@ const SignUp: React.FC = () => {
                       className="input"
                       type="text"
                       placeholder="ユーザーID"
-                      value={formUsers.username}
-                      onChange={handleChange}
+                      value={username}
+                      onChange={e => {
+                        setUsername(e.target.value);
+                      }}
                     />
                   </div>
                 </div>
@@ -160,28 +182,32 @@ const SignUp: React.FC = () => {
                   <div className="control">
                     <input
                       id="password"
-                      name="hashed_password"
+                      name="password"
                       className="input"
                       type="password"
                       placeholder="パスワード"
-                      value={formUsers.password}
-                      onChange={handleChange}
+                      value={password}
+                      onChange={e => {
+                        setPassword(e.target.value);
+                      }}
                     />
                   </div>
                 </div>
                 <div className="field">
-                  <label className="label" htmlFor="password">
+                  <label className="label" htmlFor="display_name">
                     表示名
                   </label>
                   <div className="control">
                     <input
-                      id="password"
-                      name="hashed_password"
+                      id="display_name"
+                      name="display_name"
                       className="input"
-                      type="password"
+                      type="text"
                       placeholder="表示名"
-                      value={formUsers.display_name}
-                      onChange={handleChange}
+                      value={display_name}
+                      onChange={e => {
+                        setDisplay_name(e.target.value);
+                      }}
                     />
                   </div>
                 </div>
@@ -196,7 +222,7 @@ const SignUp: React.FC = () => {
                   </div>
                 </div>
                 <div className="has-text-centered">
-                  <Link to="/signin">サインインはこちら</Link>
+                  <Link to="/SignIn">サインインはこちら</Link>
                 </div>
               </form>
             </div>
