@@ -60,7 +60,7 @@ const PurchasingHistoryList: React.FC = () => {
     const endpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}/item_purchasing_histories/`;
 
     if (!accessToken) {
-      navigate("/login");
+      navigate("/SignIn");
       return;
     }
 
@@ -77,7 +77,7 @@ const PurchasingHistoryList: React.FC = () => {
       })
       .catch(error => {
         console.error("APIリクエストエラー:", error);
-        navigate("/login");
+        navigate("/SignIn");
       });
   }, [navigate]);
 

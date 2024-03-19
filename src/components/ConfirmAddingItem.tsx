@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import Footer from './Footer'
+import Footer from "./Footer";
 import "bulma/css/bulma.min.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -13,16 +13,16 @@ interface NewItem {
   selling_price: number;
   new_item_expiration_dates: NewItemExpirationDate[];
   new_item_thumbnail: NewItemThumbnail;
-};
+}
 
 interface NewItemExpirationDate {
   expiration_date: string;
   quantity: number;
-};
+}
 
 interface NewItemThumbnail {
   base64: string;
-};
+}
 
 interface ItemGroup {
   uuid: string;
@@ -30,7 +30,7 @@ interface ItemGroup {
   color: string;
   created_at: string;
   updated_at: string;
-};
+}
 
 interface GroupInfo {
   uuid: string;
@@ -41,7 +41,6 @@ interface GroupInfo {
   created_at: string;
   updated_at: string;
 }
-
 
 const ConfirmAddingItem: React.FC = () => {
   const navigate = useNavigate();
@@ -57,12 +56,12 @@ const ConfirmAddingItem: React.FC = () => {
     new_item_expiration_dates: [
       {
         expiration_date: "",
-        quantity: 0
-      }
+        quantity: 0,
+      },
     ],
     new_item_thumbnail: {
-      base64: ""
-    }
+      base64: "",
+    },
   };
 
   // const [item, setItem] = useState<Item>();
@@ -83,13 +82,13 @@ const ConfirmAddingItem: React.FC = () => {
       new_item_expiration_dates: [
         {
           expiration_date: newItem.new_item_expiration_dates[0].expiration_date,
-          quantity: newItem.new_item_expiration_dates[0].quantity
-        }
+          quantity: newItem.new_item_expiration_dates[0].quantity,
+        },
       ],
       new_item_thumbnail: {
-        base64: newItem.new_item_thumbnail.base64
-      }
-    }
+        base64: newItem.new_item_thumbnail.base64,
+      },
+    };
 
     setNewItem(_newItem);
   };
@@ -104,13 +103,13 @@ const ConfirmAddingItem: React.FC = () => {
       new_item_expiration_dates: [
         {
           expiration_date: newItem.new_item_expiration_dates[0].expiration_date,
-          quantity: newItem.new_item_expiration_dates[0].quantity
-        }
+          quantity: newItem.new_item_expiration_dates[0].quantity,
+        },
       ],
       new_item_thumbnail: {
-        base64: newItem.new_item_thumbnail.base64
-      }
-    }
+        base64: newItem.new_item_thumbnail.base64,
+      },
+    };
 
     setNewItem(_newItem);
   };
@@ -125,13 +124,13 @@ const ConfirmAddingItem: React.FC = () => {
       new_item_expiration_dates: [
         {
           expiration_date: newItem.new_item_expiration_dates[0].expiration_date,
-          quantity: newItem.new_item_expiration_dates[0].quantity
-        }
+          quantity: newItem.new_item_expiration_dates[0].quantity,
+        },
       ],
       new_item_thumbnail: {
-        base64: newItem.new_item_thumbnail.base64
-      }
-    }
+        base64: newItem.new_item_thumbnail.base64,
+      },
+    };
 
     setNewItem(_newItem);
   };
@@ -146,13 +145,13 @@ const ConfirmAddingItem: React.FC = () => {
       new_item_expiration_dates: [
         {
           expiration_date: newItem.new_item_expiration_dates[0].expiration_date,
-          quantity: newItem.new_item_expiration_dates[0].quantity
-        }
+          quantity: newItem.new_item_expiration_dates[0].quantity,
+        },
       ],
       new_item_thumbnail: {
-        base64: newItem.new_item_thumbnail.base64
-      }
-    }
+        base64: newItem.new_item_thumbnail.base64,
+      },
+    };
 
     setNewItem(_newItem);
   };
@@ -167,13 +166,13 @@ const ConfirmAddingItem: React.FC = () => {
       new_item_expiration_dates: [
         {
           expiration_date: newItem.new_item_expiration_dates[0].expiration_date,
-          quantity: newItem.new_item_expiration_dates[0].quantity
-        }
+          quantity: newItem.new_item_expiration_dates[0].quantity,
+        },
       ],
       new_item_thumbnail: {
-        base64: newItem.new_item_thumbnail.base64
-      }
-    }
+        base64: newItem.new_item_thumbnail.base64,
+      },
+    };
 
     setNewItem(_newItem);
   };
@@ -188,13 +187,13 @@ const ConfirmAddingItem: React.FC = () => {
       new_item_expiration_dates: [
         {
           expiration_date: newExpirationDate,
-          quantity: newItem.new_item_expiration_dates[0].quantity
-        }
+          quantity: newItem.new_item_expiration_dates[0].quantity,
+        },
       ],
       new_item_thumbnail: {
-        base64: newItem.new_item_thumbnail.base64
-      }
-    }
+        base64: newItem.new_item_thumbnail.base64,
+      },
+    };
 
     setNewItem(_newItem);
   };
@@ -209,13 +208,13 @@ const ConfirmAddingItem: React.FC = () => {
       new_item_expiration_dates: [
         {
           expiration_date: newItem.new_item_expiration_dates[0].expiration_date,
-          quantity: newItem.new_item_expiration_dates[0].quantity + 1
-        }
+          quantity: newItem.new_item_expiration_dates[0].quantity + 1,
+        },
       ],
       new_item_thumbnail: {
-        base64: newItem.new_item_thumbnail.base64
-      }
-    }
+        base64: newItem.new_item_thumbnail.base64,
+      },
+    };
 
     setNewItem(_newItem);
   };
@@ -230,22 +229,22 @@ const ConfirmAddingItem: React.FC = () => {
       new_item_expiration_dates: [
         {
           expiration_date: newItem.new_item_expiration_dates[0].expiration_date,
-          quantity: newItem.new_item_expiration_dates[0].quantity - 1
-        }
+          quantity: newItem.new_item_expiration_dates[0].quantity - 1,
+        },
       ],
       new_item_thumbnail: {
-        base64: newItem.new_item_thumbnail.base64
-      }
-    }
+        base64: newItem.new_item_thumbnail.base64,
+      },
+    };
 
     setNewItem(_newItem);
   };
 
   const handleImageChange = (event: any) => {
     const file = event.target.files[0];
-    if (file && file.type.startsWith('image/')) {
+    if (file && file.type.startsWith("image/")) {
       const reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         const newBase64 = e.target?.result?.toString();
         setNewItem({
           ...newItem,
@@ -258,7 +257,6 @@ const ConfirmAddingItem: React.FC = () => {
       reader.readAsDataURL(file);
     }
   };
-
 
   const itemEndpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupInfo?.uuid}/items/`;
 
@@ -281,7 +279,7 @@ const ConfirmAddingItem: React.FC = () => {
       })
       .catch(error => {
         console.error("API request error:", error);
-        navigate("/login");
+        navigate("/SignIn");
       });
   };
 
@@ -294,12 +292,11 @@ const ConfirmAddingItem: React.FC = () => {
     handleBarcodeChange(barcode!);
 
     if (!accessToken) {
-      navigate("/login");
+      navigate("/SignIn");
       return;
     }
 
-    const groupEndpointUrl =
-    `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}`
+    const groupEndpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}`;
     axios
       .get<GroupInfo>(groupEndpointUrl, {
         headers: {
@@ -313,23 +310,23 @@ const ConfirmAddingItem: React.FC = () => {
       })
       .catch(error => {
         console.error("API request error:", error);
-        navigate("/login");
+        navigate("/SignIn");
       });
 
-      const itemGroupsEndpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}/item_groups/`;
-      axios
-        .get<ItemGroup[]>(itemGroupsEndpointUrl, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .then(response => {
-          setItemGroups(response.data);
-        })
-        .catch(error => {
-          console.error("API request error:", error);
-          navigate("/login");
-        });
+    const itemGroupsEndpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}/item_groups/`;
+    axios
+      .get<ItemGroup[]>(itemGroupsEndpointUrl, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(response => {
+        setItemGroups(response.data);
+      })
+      .catch(error => {
+        console.error("API request error:", error);
+        navigate("/SignIn");
+      });
   }, [navigate]);
 
   if (!groupInfo || !itemGroups) {
@@ -366,20 +363,23 @@ const ConfirmAddingItem: React.FC = () => {
                     <div className="card-content">
                       <div className="media">
                         <div className="media-left">
-                            <input
-                              type="file"
-                              accept="image/png"
-                              capture="environment"
-                              // style={{ display: 'none' }}
-                              ref={inputRef}
-                              onChange={handleImageChange}
-                            />
+                          <input
+                            type="file"
+                            accept="image/png"
+                            capture="environment"
+                            // style={{ display: 'none' }}
+                            ref={inputRef}
+                            onChange={handleImageChange}
+                          />
                           <figure className="image is-48x48">
-                          {newItem.new_item_thumbnail.base64 ? (
-                            <img src={`${newItem.new_item_thumbnail.base64}`} alt="Item Thumbnail" />
-                          ) : (
-                            <span>Tap to add a photo</span>
-                          )}
+                            {newItem.new_item_thumbnail.base64 ? (
+                              <img
+                                src={`${newItem.new_item_thumbnail.base64}`}
+                                alt="Item Thumbnail"
+                              />
+                            ) : (
+                              <span>Tap to add a photo</span>
+                            )}
                           </figure>
                         </div>
                         <div className="media-content">
@@ -388,7 +388,9 @@ const ConfirmAddingItem: React.FC = () => {
                             type="text"
                             name="name"
                             value={newItem.name}
-                            onChange={e => {handleNameChange(e.target.value);}}
+                            onChange={e => {
+                              handleNameChange(e.target.value);
+                            }}
                             placeholder="商品名"
                           />
                           <input
@@ -396,7 +398,9 @@ const ConfirmAddingItem: React.FC = () => {
                             type="number"
                             name="cost_price"
                             value={newItem.cost_price}
-                            onChange={e => {handleCostPriceChange(Number(e.target.value));}}
+                            onChange={e => {
+                              handleCostPriceChange(Number(e.target.value));
+                            }}
                             placeholder="原価"
                           />
                           <input
@@ -404,7 +408,9 @@ const ConfirmAddingItem: React.FC = () => {
                             type="number"
                             name="selling_price"
                             value={newItem.selling_price}
-                            onChange={e => {handleSellingPriceChange(Number(e.target.value));}}
+                            onChange={e => {
+                              handleSellingPriceChange(Number(e.target.value));
+                            }}
                             placeholder="売価"
                           />
                         </div>
@@ -417,8 +423,12 @@ const ConfirmAddingItem: React.FC = () => {
                       className="input"
                       type="date"
                       name="item_expiration_date"
-                      value={newItem.new_item_expiration_dates[0].expiration_date}
-                      onChange={e => {handleExpirationDateChange(e.target.value);}}
+                      value={
+                        newItem.new_item_expiration_dates[0].expiration_date
+                      }
+                      onChange={e => {
+                        handleExpirationDateChange(e.target.value);
+                      }}
                       placeholder="消費期限"
                     />
                   </section>
@@ -426,13 +436,25 @@ const ConfirmAddingItem: React.FC = () => {
                     <h2 className="subtitle">数量</h2>
                     <div className="level">
                       <div className="lebel-item has-text-left">
-                        <button className="button" onClick={()=>handleQuantityDecrement(newItem)}>-</button>
+                        <button
+                          className="button"
+                          onClick={() => handleQuantityDecrement(newItem)}
+                        >
+                          -
+                        </button>
                       </div>
                       <div className="lebel-item has-text-centered">
-                        <p className="title is-6">{newItem.new_item_expiration_dates[0].quantity}</p>
+                        <p className="title is-6">
+                          {newItem.new_item_expiration_dates[0].quantity}
+                        </p>
                       </div>
                       <div className="lebel-item has-text-right">
-                        <button className="button" onClick={()=>handleQuantityIncrement(newItem)}>+</button>
+                        <button
+                          className="button"
+                          onClick={() => handleQuantityIncrement(newItem)}
+                        >
+                          +
+                        </button>
                       </div>
                     </div>
                   </section>
@@ -440,7 +462,11 @@ const ConfirmAddingItem: React.FC = () => {
                     <div className="level-item has-text-centered">
                       <div>
                         <p className="heading">計</p>
-                        <p className="title is-4">￥{newItem.selling_price * newItem.new_item_expiration_dates[0].quantity}</p>
+                        <p className="title is-4">
+                          ￥
+                          {newItem.selling_price *
+                            newItem.new_item_expiration_dates[0].quantity}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -453,9 +479,7 @@ const ConfirmAddingItem: React.FC = () => {
                     </button>
                   </div>
                   <div className="my-custom-button">
-                    <button
-                      className="my-custom-button button is-fullwidth mt-4"
-                    >
+                    <button className="my-custom-button button is-fullwidth mt-4">
                       戻る
                     </button>
                   </div>

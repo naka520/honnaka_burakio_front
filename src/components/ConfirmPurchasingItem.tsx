@@ -143,7 +143,7 @@ const ConfirmPurchasingItem: React.FC = () => {
       })
       .catch(error => {
         console.error("API request error:", error);
-        navigate("/login");
+        navigate("/SignIn");
       });
   };
 
@@ -157,7 +157,7 @@ const ConfirmPurchasingItem: React.FC = () => {
     const barcodeEndpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}/items/${barcode}`;
 
     if (!accessToken) {
-      navigate("/login");
+      navigate("/SignIn");
       return;
     }
 
@@ -175,7 +175,7 @@ const ConfirmPurchasingItem: React.FC = () => {
       })
       .catch(error => {
         console.error("APIリクエストエラー:", error);
-        navigate("/login");
+        navigate("/SignIn");
       });
     const balance_endpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}`;
     axios
@@ -191,7 +191,7 @@ const ConfirmPurchasingItem: React.FC = () => {
       })
       .catch(error => {
         console.error("API request error:", error);
-        navigate("/login");
+        navigate("/SignIn");
       });
   }, [navigate]);
 
