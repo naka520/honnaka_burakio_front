@@ -3,6 +3,7 @@ import Footer from './Footer'
 import "bulma/css/bulma.min.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 // interface Item {
 //   uuid: string;
@@ -80,6 +81,7 @@ interface GroupInfo {
 
 const ConfirmAddingItem: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const inputRef = useRef(null);
 
   const initializedNewItem: NewItem = {
@@ -133,6 +135,27 @@ const ConfirmAddingItem: React.FC = () => {
       item_group_uuid: newItem.item_group_uuid,
       name: newName,
       barcode: newItem.barcode,
+      cost_price: newItem.cost_price,
+      selling_price: newItem.selling_price,
+      new_item_expiration_dates: [
+        {
+          expiration_date: newItem.new_item_expiration_dates[0].expiration_date,
+          quantity: newItem.new_item_expiration_dates[0].quantity
+        }
+      ],
+      new_item_thumbnail: {
+        base64: newItem.new_item_thumbnail.base64
+      }
+    }
+
+    setNewItem(_newItem);
+  };
+
+  const handleBarcodeChange = (newBarcode: string) => {
+    const _newItem: NewItem = {
+      item_group_uuid: newItem.item_group_uuid,
+      name: newItem.name,
+      barcode: newBarcode,
       cost_price: newItem.cost_price,
       selling_price: newItem.selling_price,
       new_item_expiration_dates: [
@@ -301,7 +324,10 @@ const ConfirmAddingItem: React.FC = () => {
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
     const groupUuid = localStorage.getItem("selectedGroupUuid");
-    const barcode = localStorage.getItem("barcode");
+    const queryParams = new URLSearchParams(location.search);
+    const barcode = queryParams.get("barcode");
+
+    handleBarcodeChange(barcode!);
 
     if (!accessToken) {
       navigate("/login");

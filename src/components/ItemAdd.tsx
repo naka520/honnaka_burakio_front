@@ -38,6 +38,7 @@ const ItemAdd: React.FC = () => {
         (result, error) => {
           if (result) {
             setBarcodeData(result.getText());
+            navigate(`/ConfirmAddingItem?barcode=${result.getText()}`);
           } else if (error) {
             if (
               !(
