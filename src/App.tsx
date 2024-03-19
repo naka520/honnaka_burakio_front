@@ -15,6 +15,7 @@ import SignIn from "./components/SignIn";
 import ConfirmPurchasingItem from "./components/ConfirmPurchasingItem";
 import GroupManage from "./components/GroupManage";
 import ItemAdd from "./components/ItemAdd";
+import ConfirmAddingItem from "./components/ConfirmAddingItem";
 const App: React.FC = () => {
   return (
     <BrowserRouter>
@@ -33,6 +34,7 @@ const App: React.FC = () => {
         <Route path="/Setting" element={<Setting/>}/>
         <Route path="/GroupManage" element={<GroupManage/>}/>
         <Route path="/ItemAdd" element={<ItemAdd/>}/>
+        <Route path="/ConfirmAddingItem" element={<ConfirmAddingItem/>}/>
         {/* 以下のコメントアウトされたルートも、必要に応じて修正してください */}
         {/* <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> */}

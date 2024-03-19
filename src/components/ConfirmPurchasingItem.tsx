@@ -80,7 +80,7 @@ const ConfirmPurchasingItem: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<ItemExpirationDate>();
   const [itemPurchasing, setItemPurchasing] = useState<ItemPurchasing>(initialItemPurchasing);
   const [groupInfo, setGroupInfo] = useState<GroupInfo>();
-  
+
 
   const handleCheckboxChange = (selectedDate: ItemExpirationDate) => {
     setSelectedDate(selectedDate);
@@ -111,7 +111,7 @@ const ConfirmPurchasingItem: React.FC = () => {
 
   const handleItemPurchasing = (event: React.FormEvent) =>{
     console.log({purchaseEndpoinUrl: purchaseEndpointUrl})
-    
+
     event.preventDefault();
     if (!itemPurchasing.item_expiration_date_uuid|| !itemPurchasing.quantity) {
       console.error("All fields are required");
@@ -140,15 +140,13 @@ const ConfirmPurchasingItem: React.FC = () => {
         navigate("/login");
       });
   };
-  
+
 
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
-    // const groupUuid = localStorage.getItem("selectedGroupUuid")
-    const groupUuid = "057601DA-3E54-46";
-    // const barcode = localStorage.getItem("barcode")
-    const barcode =12345
+    const groupUuid = localStorage.getItem("selectedGroupUuid")
+    const barcode = localStorage.getItem("barcode")
     const barcodeEndpointUrl =
       `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}/items/${barcode}`;
 
@@ -193,7 +191,7 @@ const ConfirmPurchasingItem: React.FC = () => {
   }, [navigate]);
 
   if (!purchaseItem || !groupInfo) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   return (
@@ -232,7 +230,7 @@ const ConfirmPurchasingItem: React.FC = () => {
                             checked={item_expiration_date.uuid === selectedDate?.uuid }
                             onChange={()=>handleCheckboxChange(item_expiration_date)}
                           />
-                        <label>{Intl.DateTimeFormat('ja-JP').format(new Date(item_expiration_date.expiration_date))}</label> 
+                        <label>{Intl.DateTimeFormat('ja-JP').format(new Date(item_expiration_date.expiration_date))}</label>
                         </div>
                       </div>
                     ))}
@@ -280,7 +278,7 @@ const ConfirmPurchasingItem: React.FC = () => {
                       戻る
                     </button>
                   </div>
-                </div>  
+                </div>
               </div>
               <Footer />
             </div>
