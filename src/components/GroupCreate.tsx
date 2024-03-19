@@ -1,22 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bulma/css/bulma.min.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+interface Groups {
+  groupname: string;
+  password: string;
+  display_name: string;
+}
 
 const GroupCreate: React.FC = () => {
-  const [groupData, setGroupData] = useState({
-    groupId: "",
-    grouppassword: "",
-    groupname: "",
-  });
+  const navigate = useNavigate();
+  const [groupname, setGroupname] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [display_name, setDisplay_name] = useState<string>("");
+  const [groups, setGroups] = useState<Groups[]>([]);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setGroupData({ ...groupData, [name]: value });
-  };
+  const EndpoinUrl =
+    "https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/signup";
+  useEffect(() => {
+    const accessToken = localStorage.getItem("access_token");
+    if (!accessToken) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handlechange = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(groupData);
-    // グループ作成処理をここに実装します
+    if (!groupname || !password || !display_name) {
+      console.error("All fields are required");
+      return;
+    }
+    const requestData: Groups = {
+      groupname: groupname,
+      password: password,
+      display_name: display_name,
+    };
+    const accessToken = localStorage.getItem("access_token");
+    axios
+      .post(EndpoinUrl, requestData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(response => {
+        setGroups(response.data);
+        console.log("POSTだぜ！");
+        console.log(response.data);
+        navigate("/GroupList");
+      })
+      .catch(error => {
+        console.error("API request error:", error);
+        navigate("/login");
+      });
   };
 
   return (
@@ -27,7 +63,7 @@ const GroupCreate: React.FC = () => {
             <div className="card">
               <p className="card-header-title">グループを作成</p>
               <div className="card-content">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handlechange}>
                   <div className="field">
                     <label className="label">グループID</label>
                     <div className="control">
@@ -35,8 +71,10 @@ const GroupCreate: React.FC = () => {
                         className="input"
                         type="text"
                         name="groupId"
-                        value={groupData.groupId}
-                        onChange={handleInputChange}
+                        value={groupname}
+                        onChange={e => {
+                          setGroupname(e.target.value);
+                        }}
                         placeholder="グループID"
                       />
                     </div>
@@ -48,8 +86,10 @@ const GroupCreate: React.FC = () => {
                         className="input"
                         type="text"
                         name="groupName"
-                        value={groupData.grouppassword}
-                        onChange={handleInputChange}
+                        value={password}
+                        onChange={e => {
+                          setPassword(e.target.value);
+                        }}
                         placeholder="パスワード"
                       />
                     </div>
@@ -61,8 +101,10 @@ const GroupCreate: React.FC = () => {
                         className="input"
                         type="text"
                         name="groupDesc"
-                        value={groupData.groupname}
-                        onChange={handleInputChange}
+                        value={display_name}
+                        onChange={e => {
+                          setDisplay_name(e.target.value);
+                        }}
                         placeholder="グループ名"
                       />
                     </div>

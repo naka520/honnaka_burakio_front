@@ -197,7 +197,7 @@ const SignIn: React.FC = () => {
                   </div>
                 </div>
                 <div className="has-text-centered">
-                  <Link to="/SignUp">サインアップはこちら</Link>
+                  <Link to="/">サインアップはこちら</Link>
                 </div>
               </form>
             </div>
