@@ -218,17 +218,17 @@ import Footer from "./Footer";
 interface ItemThumbnail {
   uuid: string;
   base64: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 interface ItemExpirationDate {
   uuid: string;
   item: Item;
-  expiration_date: Date;
+  expiration_date: string;
   quantity: number;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 interface Item {
@@ -240,8 +240,8 @@ interface Item {
   selling_price: number;
   item_expiration_dates: ItemExpirationDate[];
   item_thumbnail: ItemThumbnail;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 interface ItemGroup {
@@ -249,8 +249,8 @@ interface ItemGroup {
   name: string;
   color: string;
   items: Item[];
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
 }
 
 const ItemList: React.FC = () => {
@@ -265,6 +265,23 @@ const ItemList: React.FC = () => {
       items: [...group.items].sort((a, b) => {
         if (sortType === "価格順") {
           return a.selling_price - b.selling_price;
+        }
+        if (sortType === "消費期限順") {
+          if (
+            a.item_expiration_dates[0].expiration_date <=
+            b.item_expiration_dates[0].expiration_date
+          ) {
+            if (
+              a.item_expiration_dates[0].expiration_date ===
+              b.item_expiration_dates[0].expiration_date
+            ) {
+              return 0;
+            }
+
+            return -1;
+          } else {
+            return 1;
+          }
         }
         // 他のソート条件があればここに追加
         return 0;
@@ -369,7 +386,12 @@ const ItemList: React.FC = () => {
                         >
                           価格順
                         </a>
-                        {/* 他のソートオプションが必要な場合はここに追加 */}
+                        <a
+                          className="dropdown-item"
+                          onClick={() => handleSortSelection("消費期限順")}
+                        >
+                          消費期限順
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -404,7 +426,18 @@ const ItemList: React.FC = () => {
                               <div className="content">
                                 <p>
                                   <strong>{item.name}</strong>{" "}
+                                </p>
+                                <p>
                                   <small>{item.selling_price}円</small>
+                                </p>
+                                <p>
+                                  <small>
+                                    {Intl.DateTimeFormat("ja-JP").format(
+                                      new Date(
+                                        item.item_expiration_dates[0].expiration_date
+                                      )
+                                    )}
+                                  </small>
                                 </p>
                               </div>
                             </div>
