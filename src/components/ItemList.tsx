@@ -537,7 +537,9 @@ const ItemList: React.FC = () => {
                           key={item.uuid}
                           className="box"
                           onClick={() =>
-                            navigate(`/purchase?barcode=${item.barcode}`)
+                            navigate(
+                              `/ConfirmPurchasingItem?barcode=${item.barcode}`
+                            )
                           }
                         >
                           <article className="media">
