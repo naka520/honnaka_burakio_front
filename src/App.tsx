@@ -8,10 +8,11 @@ import GroupHome from "./components/GroupHome";
 import BuyItem from "./components/BuyItem";
 import ItemEditList from "./components/ItemEditList";
 import ItemList from "./components/ItemList";
-import PurchasingHistory from "./components/PurchasingHistory";
+import PurchasingHistoryList from "./components/PurchasingHistoryList";
 import Setting from "./components/Setting"
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
+import ConfirmPurchasingItem from "./components/ConfirmPurchasingItem";
 import GroupManage from "./components/GroupManage";
 import ItemAdd from "./components/ItemAdd";
 const App: React.FC = () => {
@@ -25,9 +26,10 @@ const App: React.FC = () => {
         <Route path="/GroupJoin" element={<GroupJoin />} />
         <Route path="/GroupHome/:uuid" element={<GroupHome />} />
         <Route path="/BuyItem" element={<BuyItem />} />
+        <Route path="/ConfirmPurchasingItem" element={<ConfirmPurchasingItem />} />
         <Route path="/ItemList" element={<ItemList />} />
         <Route path="/ItemEditList" element={<ItemEditList />} />
-        <Route path="/PurchasingHistories" element={<PurchasingHistory />}/>
+        <Route path="/PurchasingHistoryList" element={<PurchasingHistoryList />}/>
         <Route path="/Setting" element={<Setting/>}/>
         <Route path="/GroupManage" element={<GroupManage/>}/>
         <Route path="/ItemAdd" element={<ItemAdd/>}/>

@@ -265,43 +265,7 @@ interface ItemPurchasingHistory {
   updated_at: Date;
 }
 
-// interface ItemPurchasingHistory{
-//   uuid: string;
-//   item_expiration_date: {
-//     uuid: string;
-//     item: {
-//       uuid: string;
-//       item_group: {
-//         uuid: string;
-//         name: string;
-//         color: string;
-//         created_at: Date;
-//         updated_at: Date;
-//       };
-//       name: string;
-//       barcode: string;
-//       cost_price: number;
-//       selling_price: number;
-//       item_thumbnail: {
-//         uuid: string;
-//         base64: string;
-//         created_at: Date;
-//         updated_at: Date;
-//       };
-//       created_at: Date;
-//       updated_at: Date;
-//     };
-//     expiration_date: Date;
-//     quantity: number;
-//     created_at: Date;
-//     updated_at: Date;
-//   };
-//   quantity: number;
-//   created_at: Date;
-//   updated_at: Date;
-// }
-
-const PurchasingHistory: React.FC = () => {
+const PurchasingHistoryList: React.FC = () => {
   const navigate = useNavigate();
   const [itemPurchasingHistories, setItemPurchasingHistories] = useState<
     ItemPurchasingHistory[]
@@ -419,4 +383,4 @@ const PurchasingHistory: React.FC = () => {
   );
 };
 
-export default PurchasingHistory;
+export default PurchasingHistoryList;
