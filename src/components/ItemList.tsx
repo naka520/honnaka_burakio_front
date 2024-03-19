@@ -364,7 +364,6 @@ const ItemList: React.FC = () => {
                     <div className="dropdown-menu" id="sort-menu" role="menu">
                       <div className="dropdown-content">
                         <a
-                          href="#"
                           className="dropdown-item"
                           onClick={() => handleSortSelection("価格順")}
                         >
@@ -396,7 +395,7 @@ const ItemList: React.FC = () => {
                             <div className="media-left">
                               <figure className="image is-64x64">
                                 <img
-                                  src={`data:image/png;base64,${item.item_thumbnail.base64}`}
+                                  src={`${item.item_thumbnail.base64}`}
                                   alt={item.name}
                                 />
                               </figure>
