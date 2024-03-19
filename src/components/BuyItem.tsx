@@ -141,7 +141,7 @@
 // export default BuyItem;
 
 import React, { useRef, useEffect, useState } from "react";
-import Footer from './Footer'
+import Footer from "./Footer";
 import "bulma/css/bulma.min.css";
 import {
   BrowserMultiFormatReader,
@@ -179,7 +179,9 @@ const BuyItem: React.FC = () => {
         videoRef.current!,
         (result, error) => {
           if (result) {
+            // バーコードデータが取得できたら、そのデータを用いて遷移する
             setBarcodeData(result.getText());
+            navigate(`/ConfirmPurchasingItem?barcode=${result.getText()}`);
           } else if (error) {
             if (
               !(
