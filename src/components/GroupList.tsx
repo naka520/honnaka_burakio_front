@@ -183,6 +183,11 @@ const GroupList: React.FC = () => {
     navigate(`/GroupHome/${uuid}`);
   };
 
+  const handleDeleteGroup = (event: React.MouseEvent) => {
+    event.preventDefault();
+    navigate("/GroupDelete");
+  };
+
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
     const endpointUrl =
@@ -253,6 +258,13 @@ const GroupList: React.FC = () => {
                       onClick={handleJoinGroup}
                     >
                       グループに参加する
+                    </a>
+                    <a
+                      href="#"
+                      className="dropdown-item"
+                      onClick={handleDeleteGroup}
+                    >
+                      グループを削除する
                     </a>
                   </div>
                 </div>

@@ -8,9 +8,11 @@ import GroupHome from "./components/GroupHome";
 import BuyItem from "./components/BuyItem";
 import ItemEditList from "./components/ItemEditList";
 import ItemList from "./components/ItemList";
-import Setting from "./components/Setting"
+import Setting from "./components/Setting";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
+import GroupDelete from "./components/GroupDelete";
+import GroupDeleteCheck from "./components/GroupDeleteCheck";
 const App: React.FC = () => {
   return (
     <BrowserRouter>
@@ -24,7 +26,9 @@ const App: React.FC = () => {
         <Route path="/BuyItem" element={<BuyItem />} />
         <Route path="/ItemList" element={<ItemList />} />
         <Route path="/ItemEditList" element={<ItemEditList />} />
-        <Route path="/Setting" element={<Setting/>}/>
+        <Route path="/Setting" element={<Setting />} />
+        <Route path="/GroupDelete" element={<GroupDelete />} />
+        <Route path="/GroupDeleteCheck" element={<GroupDeleteCheck />} />
         {/* 以下のコメントアウトされたルートも、必要に応じて修正してください */}
         {/* <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> */}
