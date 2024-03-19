@@ -12,6 +12,8 @@ import PurchasingHistory from "./components/PurchasingHistory";
 import Setting from "./components/Setting"
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
+import GroupManage from "./components/GroupManage";
+import ItemAdd from "./components/ItemAdd";
 const App: React.FC = () => {
   return (
     <BrowserRouter>
@@ -27,6 +29,8 @@ const App: React.FC = () => {
         <Route path="/ItemEditList" element={<ItemEditList />} />
         <Route path="/PurchasingHistories" element={<PurchasingHistory />}/>
         <Route path="/Setting" element={<Setting/>}/>
+        <Route path="/GroupManage" element={<GroupManage/>}/>
+        <Route path="/ItemAdd" element={<ItemAdd/>}/>
         {/* 以下のコメントアウトされたルートも、必要に応じて修正してください */}
         {/* <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> */}
