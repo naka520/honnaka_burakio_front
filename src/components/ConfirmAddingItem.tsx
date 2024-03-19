@@ -5,42 +5,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
-// interface Item {
-//   uuid: string;
-//   item_group: ItemGroup;
-//   name: string;
-//   barcode: string;
-//   cost_price: number;
-//   selling_price: number;
-//   item_expiration_dates: ItemExpirationDate[];
-//   item_thumbnail: ItemThumbnail;
-//   created_at: Date;
-//   updated_at: Date;
-// };
-
-// interface ItemGroup {
-//   uuid: string;
-//   name: string;
-//   color: string;
-//   created_at: Date;
-//   updated_at: Date;
-// };
-
-// interface ItemThumbnail {
-//   uuid: string;
-//   base64: string;
-//   created_at: Date;
-//   updated_at: Date;
-// };
-
-// interface ItemExpirationDate {
-//   uuid: string;
-//   expiration_date: Date;
-//   quantity: number;
-//   created_at: Date;
-//   updated_at: Date;
-// };
-
 interface NewItem {
   item_group_uuid: string;
   name: string;

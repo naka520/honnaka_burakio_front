@@ -5,24 +5,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import GroupJoin from "./GroupJoin";
 
-// interface Item {
-//   id: number;
-//   name: string;
-//   price: number;
-//   // 商品の画像パスを追加する
-//   imageUrl: string;
-// }
-
-// const items: Item[] = [
-//   { id: 1, name: "キムチ", price: 120, imageUrl: "path-to-kimchi-image.png" },
-//   {
-//     id: 2,
-//     name: "チョコレート",
-//     price: 200,
-//     imageUrl: "path-to-chocolate-image.png",
-//   },
-// ];
-
 interface GroupInfo {
   uuid: string;
   groupname: string;
