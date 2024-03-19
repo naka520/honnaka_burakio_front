@@ -9,6 +9,7 @@ import BuyItem from "./components/BuyItem";
 import ItemList from "./components/ItemList";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
+import ConfirmPurchasingItem from "./components/ConfirmPurchasingItem";
 const App: React.FC = () => {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <Route path="/GroupJoin" element={<GroupJoin />} />
         <Route path="/GroupHome" element={<GroupHome />} />
         <Route path="/BuyItem" element={<BuyItem />} />
+        <Route path="/ConfirmPurchasingItem" element={<ConfirmPurchasingItem />} />
         <Route path="/ItemList" element={<ItemList />} />
         {/* 以下のコメントアウトされたルートも、必要に応じて修正してください */}
         {/* <Route path="/about" element={<About />} />
