@@ -472,7 +472,12 @@ interface ItemGroup {
 const ItemList: React.FC = () => {
   // Here we're assuming that you receive an array of ItemGroup objects
   const [itemGroups, setItemGroups] = useState<ItemGroup[]>([]);
+  const [isSortMenuActive, setIsSortMenuActive] = useState(false);
   const navigate = useNavigate();
+  const handleSortSelection = (sortType: string) => {
+    console.log("Sorting by:", sortType);
+    // 実際にはここで商品リストのソート処理を行います。
+  };
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -524,6 +529,57 @@ const ItemList: React.FC = () => {
               <div className="card-content">
                 <div className="content">
                   <h2 className="title">リストから選択</h2>
+                  <div className="my-custom-button">
+                    <button
+                      className="my-custom-button button is-fullwidth mt-4"
+                      onClick={() => navigate(-1)}
+                    >
+                      バーコードのスキャンに戻る
+                    </button>
+                  </div>
+                  <div
+                    className={`dropdown ${
+                      isSortMenuActive ? "is-active" : ""
+                    }`}
+                  >
+                    <div className="dropdown-trigger">
+                      <div className="my-custom-button">
+                        <button
+                          className="button"
+                          aria-haspopup="true"
+                          aria-controls="sort-menu"
+                          onClick={() => setIsSortMenuActive(!isSortMenuActive)}
+                        >
+                          ソート
+                          <span className="icon is-small">
+                            <i
+                              className="fas fa-angle-down"
+                              aria-hidden="true"
+                            ></i>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="dropdown-menu" id="sort-menu" role="menu">
+                      <div className="dropdown-content">
+                        <a
+                          href="#"
+                          className="dropdown-item"
+                          onClick={() => handleSortSelection("価格順")}
+                        >
+                          価格順
+                        </a>
+                        <a
+                          href="#"
+                          className="dropdown-item"
+                          onClick={() => handleSortSelection("人気順")}
+                        >
+                          消費期限順
+                        </a>
+                        {/* 他のソートオプションを追加 */}
+                      </div>
+                    </div>
+                  </div>
                   {itemGroups.map(group => (
                     <div key={group.uuid}>
                       <h3
