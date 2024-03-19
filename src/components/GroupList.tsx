@@ -209,9 +209,12 @@ const GroupList: React.FC = () => {
         navigate("/login");
       });
   }, [navigate]);
-
-  const managedGroups = groups.filter(group => group.is_administrator);
-  const joinedGroups = groups.filter(group => !group.is_administrator);
+  const managedGroups = Array.isArray(groups)
+    ? groups.filter(group => group.is_administrator)
+    : [];
+  const joinedGroups = Array.isArray(groups)
+    ? groups.filter(group => !group.is_administrator)
+    : [];
 
   return (
     <div className="container">

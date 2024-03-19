@@ -1,21 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bulma/css/bulma.min.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+interface Groups {
+  groupname: string;
+  password: string;
+}
 
 const GroupJoin: React.FC = () => {
-  const [groupData, setGroupData] = useState({
-    groupId: "",
-    grouppassword: "",
-  });
+  const navigate = useNavigate();
+  const [groupname, setGroupname] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [groups, setGroups] = useState<Groups[]>([]);
+  const EndpoinUrl =
+    "https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/signin";
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setGroupData({ ...groupData, [name]: value });
-  };
+  useEffect(() => {
+    const accessToken = localStorage.getItem("access_token");
+    if (!accessToken) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handlechange = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(groupData);
-    // グループ作成処理をここに実装します
+    if (!groupname || !password) {
+      console.error("All fields are required");
+      return;
+    }
+    const requestData: Groups = {
+      groupname: groupname,
+      password: password,
+    };
+    const accessToken = localStorage.getItem("access_token");
+    axios
+      .post(EndpoinUrl, requestData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(response => {
+        setGroups(response.data);
+        console.log("POSTだぜ！");
+        console.log(response.data);
+        navigate("/GroupList");
+      })
+      .catch(error => {
+        console.error("API request error:", error);
+        navigate("/login");
+      });
   };
 
   return (
@@ -26,7 +60,7 @@ const GroupJoin: React.FC = () => {
             <div className="card">
               <p className="card-header-title">グループに参加</p>
               <div className="card-content">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handlechange}>
                   <div className="field">
                     <label className="label">グループID</label>
                     <div className="control">
@@ -34,8 +68,10 @@ const GroupJoin: React.FC = () => {
                         className="input"
                         type="text"
                         name="groupId"
-                        value={groupData.groupId}
-                        onChange={handleInputChange}
+                        value={groupname}
+                        onChange={e => {
+                          setGroupname(e.target.value);
+                        }}
                         placeholder="グループID"
                       />
                     </div>
@@ -47,8 +83,10 @@ const GroupJoin: React.FC = () => {
                         className="input"
                         type="text"
                         name="groupName"
-                        value={groupData.grouppassword}
-                        onChange={handleInputChange}
+                        value={password}
+                        onChange={e => {
+                          setPassword(e.target.value);
+                        }}
                         placeholder="パスワード"
                       />
                     </div>
