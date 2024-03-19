@@ -80,6 +80,7 @@ interface GroupInfo {
 
 const ConfirmAddingItem: React.FC = () => {
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   const initializedNewItem: NewItem = {
     item_group_uuid: "",
@@ -253,12 +254,32 @@ const ConfirmAddingItem: React.FC = () => {
     setNewItem(_newItem);
   };
 
+  const handleImageChange = (event: any) => {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const newBase64 = e.target?.result?.toString();
+        setNewItem({
+          ...newItem,
+          new_item_thumbnail: {
+            ...newItem.new_item_thumbnail,
+            base64: newBase64 ? newBase64 : "", // Remove the Data URL part
+          },
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+
   const itemEndpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupInfo?.uuid}/items/`;
 
   const handleItemAdding = (event: React.FormEvent) => {
     event.preventDefault();
 
     const requestData: NewItem = newItem;
+    console.log(requestData);
     const accessToken = localStorage.getItem("access_token");
     axios
       .post(itemEndpointUrl, requestData, {
@@ -355,8 +376,20 @@ const ConfirmAddingItem: React.FC = () => {
                     <div className="card-content">
                       <div className="media">
                         <div className="media-left">
+                            <input
+                              type="file"
+                              accept="image/png"
+                              capture="environment"
+                              // style={{ display: 'none' }}
+                              ref={inputRef}
+                              onChange={handleImageChange}
+                            />
                           <figure className="image is-48x48">
-
+                          {newItem.new_item_thumbnail.base64 ? (
+                            <img src={`${newItem.new_item_thumbnail.base64}`} alt="Item Thumbnail" />
+                          ) : (
+                            <span>Tap to add a photo</span>
+                          )}
                           </figure>
                         </div>
                         <div className="media-content">
