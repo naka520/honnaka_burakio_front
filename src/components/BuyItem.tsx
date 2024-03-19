@@ -181,7 +181,7 @@ const BuyItem: React.FC = () => {
           if (result) {
             // バーコードデータが取得できたら、そのデータを用いて遷移する
             setBarcodeData(result.getText());
-            navigate(`/product?barcode=${result.getText()}`);
+            navigate(`/ConfirmPurchasingItem?barcode=${result.getText()}`);
           } else if (error) {
             if (
               !(

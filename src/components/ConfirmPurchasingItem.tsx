@@ -1,10 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
-import Footer from './Footer'
+import Footer from "./Footer";
 import "bulma/css/bulma.min.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
-interface PurchaseItem{
+interface PurchaseItem {
   uuid: string;
   item_group: ItemGroup;
   name: string;
@@ -14,10 +15,10 @@ interface PurchaseItem{
   item_expiration_dates: ItemExpirationDate[];
   item_thumbnail: ItemThumbnail;
   created_at: Date;
-  updated_at:Date;
+  updated_at: Date;
 }
 
-interface ItemGroup{
+interface ItemGroup {
   uuid: string;
   name: string;
   color: string;
@@ -25,14 +26,14 @@ interface ItemGroup{
   updated_at: Date;
 }
 
-interface ItemThumbnail{
+interface ItemThumbnail {
   uuid: string;
   base64: string;
   created_at: Date;
   updated_at: Date;
 }
 
-interface ItemExpirationDate{
+interface ItemExpirationDate {
   uuid: string;
   item: Item;
   expiration_date: Date;
@@ -68,52 +69,57 @@ interface GroupInfo {
   updated_at: Date;
 }
 
-
 const ConfirmPurchasingItem: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const initialItemPurchasing: ItemPurchasing = {
-    item_expiration_date_uuid: '',
+    item_expiration_date_uuid: "",
     quantity: 0,
   };
 
   const [purchaseItem, setPurchaseItem] = useState<PurchaseItem>();
   const [selectedDate, setSelectedDate] = useState<ItemExpirationDate>();
-  const [itemPurchasing, setItemPurchasing] = useState<ItemPurchasing>(initialItemPurchasing);
+  const [itemPurchasing, setItemPurchasing] = useState<ItemPurchasing>(
+    initialItemPurchasing
+  );
   const [groupInfo, setGroupInfo] = useState<GroupInfo>();
-  
 
   const handleCheckboxChange = (selectedDate: ItemExpirationDate) => {
     setSelectedDate(selectedDate);
-    const item:ItemPurchasing ={
+    const item: ItemPurchasing = {
       item_expiration_date_uuid: selectedDate.uuid,
-      quantity:0
-    }
-    setItemPurchasing(item)
+      quantity: 0,
+    };
+    setItemPurchasing(item);
   };
 
-  const handleItemPurchasingQuantityIncrement = (itemPurchasing: ItemPurchasing) => {
-    const item:ItemPurchasing = {
+  const handleItemPurchasingQuantityIncrement = (
+    itemPurchasing: ItemPurchasing
+  ) => {
+    const item: ItemPurchasing = {
       item_expiration_date_uuid: itemPurchasing.item_expiration_date_uuid,
-      quantity: itemPurchasing.quantity + 1
-    }
-    setItemPurchasing(item)
-  }
+      quantity: itemPurchasing.quantity + 1,
+    };
+    setItemPurchasing(item);
+  };
 
-  const handleItemPurchasingQuantityDecrement = (itemPurchasing: ItemPurchasing) => {
-    const item:ItemPurchasing = {
+  const handleItemPurchasingQuantityDecrement = (
+    itemPurchasing: ItemPurchasing
+  ) => {
+    const item: ItemPurchasing = {
       item_expiration_date_uuid: itemPurchasing.item_expiration_date_uuid,
-      quantity: itemPurchasing.quantity - 1
-    }
-    setItemPurchasing(item)
-  }
+      quantity: itemPurchasing.quantity - 1,
+    };
+    setItemPurchasing(item);
+  };
 
   const purchaseEndpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupInfo?.uuid}/items/purchase`;
 
-  const handleItemPurchasing = (event: React.FormEvent) =>{
-    console.log({purchaseEndpoinUrl: purchaseEndpointUrl})
-    
+  const handleItemPurchasing = (event: React.FormEvent) => {
+    console.log({ purchaseEndpoinUrl: purchaseEndpointUrl });
+
     event.preventDefault();
-    if (!itemPurchasing.item_expiration_date_uuid|| !itemPurchasing.quantity) {
+    if (!itemPurchasing.item_expiration_date_uuid || !itemPurchasing.quantity) {
       console.error("All fields are required");
       return;
     }
@@ -122,7 +128,7 @@ const ConfirmPurchasingItem: React.FC = () => {
     //   quantity: itemPurchasing.quantity
     // };
     const requestData: ItemPurchasing = itemPurchasing;
-    console.log({requestData})
+    console.log({ requestData });
     const accessToken = localStorage.getItem("access_token");
     axios
       .post(purchaseEndpointUrl, requestData, {
@@ -140,17 +146,15 @@ const ConfirmPurchasingItem: React.FC = () => {
         navigate("/login");
       });
   };
-  
-
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
-    // const groupUuid = localStorage.getItem("selectedGroupUuid")
-    const groupUuid = "057601DA-3E54-46";
-    // const barcode = localStorage.getItem("barcode")
-    const barcode =12345
-    const barcodeEndpointUrl =
-      `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}/items/${barcode}`;
+    const groupUuid = localStorage.getItem("selectedGroupUuid");
+    const queryParams = new URLSearchParams(location.search);
+    const barcode = queryParams.get("barcode");
+
+    console.log({ barcode });
+    const barcodeEndpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}/items/${barcode}`;
 
     if (!accessToken) {
       navigate("/login");
@@ -173,8 +177,7 @@ const ConfirmPurchasingItem: React.FC = () => {
         console.error("APIリクエストエラー:", error);
         navigate("/login");
       });
-    const balance_endpointUrl =
-    `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}`
+    const balance_endpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}`;
     axios
       .get<GroupInfo>(balance_endpointUrl, {
         headers: {
@@ -193,7 +196,7 @@ const ConfirmPurchasingItem: React.FC = () => {
   }, [navigate]);
 
   if (!purchaseItem || !groupInfo) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   return (
@@ -209,45 +212,73 @@ const ConfirmPurchasingItem: React.FC = () => {
                     <div className="card-content">
                       <div className="media">
                         <div className="media-left">
-                          <figure className="image is-48x48">
-
-                          </figure>
+                          <figure className="image is-48x48"></figure>
                         </div>
                         <div className="media-content">
                           <p className="title is-4">{purchaseItem.name}</p>
-                          <p className="subtitle is-6">{purchaseItem.selling_price}</p>
+                          <p className="subtitle is-6">
+                            {purchaseItem.selling_price}
+                          </p>
                         </div>
                       </div>
                     </div>
                   </div>
                   <section className="section">
                     <h2 className="subtitle">消費期限を選択</h2>
-                    {purchaseItem.item_expiration_dates.map(item_expiration_date =>(
-                      <div key={item_expiration_date.uuid} className="box">
-                        <div className="field">
-                          <input
-                            id="checkbox"
-                            type="checkbox"
-                            className="is-checkradio"
-                            checked={item_expiration_date.uuid === selectedDate?.uuid }
-                            onChange={()=>handleCheckboxChange(item_expiration_date)}
-                          />
-                        <label>{Intl.DateTimeFormat('ja-JP').format(new Date(item_expiration_date.expiration_date))}</label> 
+                    {purchaseItem.item_expiration_dates.map(
+                      item_expiration_date => (
+                        <div key={item_expiration_date.uuid} className="box">
+                          <div className="field">
+                            <input
+                              id="checkbox"
+                              type="checkbox"
+                              className="is-checkradio"
+                              checked={
+                                item_expiration_date.uuid === selectedDate?.uuid
+                              }
+                              onChange={() =>
+                                handleCheckboxChange(item_expiration_date)
+                              }
+                            />
+                            <label>
+                              {Intl.DateTimeFormat("ja-JP").format(
+                                new Date(item_expiration_date.expiration_date)
+                              )}
+                            </label>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    )}
                   </section>
                   <section className="section">
                     <h2 className="subtitle">数量</h2>
                     <div className="level">
                       <div className="lebel-item has-text-left">
-                        <button className="button" onClick={()=>handleItemPurchasingQuantityDecrement(itemPurchasing)}>-</button>
+                        <button
+                          className="button"
+                          onClick={() =>
+                            handleItemPurchasingQuantityDecrement(
+                              itemPurchasing
+                            )
+                          }
+                        >
+                          -
+                        </button>
                       </div>
                       <div className="lebel-item has-text-centered">
                         <p className="title is-6">{itemPurchasing.quantity}</p>
                       </div>
                       <div className="lebel-item has-text-right">
-                        <button className="button" onClick={()=>handleItemPurchasingQuantityIncrement(itemPurchasing)}>+</button>
+                        <button
+                          className="button"
+                          onClick={() =>
+                            handleItemPurchasingQuantityIncrement(
+                              itemPurchasing
+                            )
+                          }
+                        >
+                          +
+                        </button>
                       </div>
                     </div>
                   </section>
@@ -255,13 +286,21 @@ const ConfirmPurchasingItem: React.FC = () => {
                     <div className="level-item has-text-centered">
                       <div>
                         <p className="heading">計</p>
-                        <p className="title is-4">￥{purchaseItem.selling_price * itemPurchasing.quantity}</p>
+                        <p className="title is-4">
+                          ￥
+                          {purchaseItem.selling_price * itemPurchasing.quantity}
+                        </p>
                       </div>
                     </div>
                     <div className="level-item has-text-centered">
                       <div>
                         <p className="heading">購入後の残高</p>
-                        <p className="title is-4">￥{groupInfo.balance - purchaseItem.selling_price * itemPurchasing.quantity}</p>
+                        <p className="title is-4">
+                          ￥
+                          {groupInfo.balance -
+                            purchaseItem.selling_price *
+                              itemPurchasing.quantity}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -274,13 +313,11 @@ const ConfirmPurchasingItem: React.FC = () => {
                     </button>
                   </div>
                   <div className="my-custom-button">
-                    <button
-                      className="my-custom-button button is-fullwidth mt-4"
-                    >
+                    <button className="my-custom-button button is-fullwidth mt-4">
                       戻る
                     </button>
                   </div>
-                </div>  
+                </div>
               </div>
               <Footer />
             </div>
@@ -291,4 +328,4 @@ const ConfirmPurchasingItem: React.FC = () => {
   );
 };
 
-export default ConfirmPurchasingItem
+export default ConfirmPurchasingItem;
