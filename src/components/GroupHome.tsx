@@ -130,7 +130,7 @@ const GroupHome: React.FC = () => {
             <div className="card">
               <div className="card-content">
                 <div className="content">
-                  <h2 className="title">{groupInfo.display_name}</h2>,
+                  <h2 className="title">{groupInfo.display_name}</h2>
                   <div className="my-custom-graycolor1 notification  has-text-centered">
                     <p className="title is-4">あなたの残高</p>
                     <p className="subtitle is-6">{groupInfo.balance}</p>
