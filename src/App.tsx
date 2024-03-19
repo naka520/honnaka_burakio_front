@@ -8,7 +8,7 @@ import GroupHome from "./components/GroupHome";
 import BuyItem from "./components/BuyItem";
 import ItemEditList from "./components/ItemEditList";
 import ItemList from "./components/ItemList";
-import PurchasingHistory from "./components/PurchasingHistory";
+import PurchasingHistoryList from "./components/PurchasingHistoryList";
 import Setting from "./components/Setting"
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
@@ -27,7 +27,7 @@ const App: React.FC = () => {
         <Route path="/ConfirmPurchasingItem" element={<ConfirmPurchasingItem />} />
         <Route path="/ItemList" element={<ItemList />} />
         <Route path="/ItemEditList" element={<ItemEditList />} />
-        <Route path="/PurchasingHistories" element={<PurchasingHistory />}/>
+        <Route path="/PurchasingHistoryList" element={<PurchasingHistoryList />}/>
         <Route path="/Setting" element={<Setting/>}/>
         {/* 以下のコメントアウトされたルートも、必要に応じて修正してください */}
         {/* <Route path="/about" element={<About />} />
