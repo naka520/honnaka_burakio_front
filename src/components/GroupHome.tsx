@@ -66,7 +66,7 @@ const GroupHome: React.FC = () => {
 
   useEffect(() => {
     if (!accessToken) {
-      navigate("/login");
+      navigate("/SignIn");
       return;
     }
 
@@ -83,7 +83,7 @@ const GroupHome: React.FC = () => {
       })
       .catch(error => {
         console.error("API request error:", error);
-        navigate("/login");
+        navigate("/SignIn");
       });
 
     const itemsEndpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}/items/recommended?size=10`; // アイテム情報のエンドポイント

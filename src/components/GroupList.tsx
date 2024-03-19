@@ -43,7 +43,7 @@ const GroupList: React.FC = () => {
       "https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/";
 
     if (!accessToken) {
-      navigate("/login");
+      navigate("/SignIn");
       return;
     }
 
@@ -60,7 +60,7 @@ const GroupList: React.FC = () => {
       })
       .catch(error => {
         console.error("API request error:", error);
-        navigate("/login");
+        navigate("/SignIn");
       });
   }, [navigate]);
   const managedGroups = Array.isArray(groups)

@@ -28,7 +28,7 @@ const GroupManage: React.FC = () => {
 
   useEffect(() => {
     if (!accessToken) {
-      navigate("/login");
+      navigate("/SignIn");
       return;
     }
 
@@ -45,9 +45,9 @@ const GroupManage: React.FC = () => {
       })
       .catch(error => {
         console.error("API request error:", error);
-        navigate("/login");
+        navigate("/SignIn");
       });
-    }, [navigate]);
+  }, [navigate]);
 
   if (!groupInfo) {
     return <div>Loading...</div>; // groupInfoがまだない場合はローディングを表示

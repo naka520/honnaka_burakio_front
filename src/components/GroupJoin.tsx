@@ -19,7 +19,7 @@ const GroupJoin: React.FC = () => {
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
     if (!accessToken) {
-      navigate("/login");
+      navigate("/SignIn");
     }
   }, [navigate]);
 
@@ -48,7 +48,7 @@ const GroupJoin: React.FC = () => {
       })
       .catch(error => {
         console.error("API request error:", error);
-        navigate("/login");
+        navigate("/SignIn");
       });
   };
 
