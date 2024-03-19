@@ -254,7 +254,7 @@ const ConfirmPurchasingItem: React.FC = () => {
                   </section>
                   <section className="section">
                     <h2 className="subtitle">数量</h2>
-                    <div className="level">
+                    <div className="level is-mobile">
                       <div className="lebel-item has-text-left">
                         <button
                           className="button"
