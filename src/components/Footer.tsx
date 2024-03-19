@@ -25,12 +25,14 @@ const Footer: React.FC = () => {
       </button>
       <button
         className="button"
+        onClick={() => navigate("/PurchasingHistories")}
         // Add corresponding onClick handlers when necessary
       >
-        プロフィール
+        購入履歴
       </button>
       <button
         className="button"
+        onClick={() => navigate("/Setting")}
         // Add corresponding onClick handlers when necessary
       >
         設定
