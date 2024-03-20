@@ -26,6 +26,7 @@ interface ItemGroup {
   uuid: string;
   name: string;
   color: string;
+  items: Item[];
   created_at: string;
   updated_at: string;
 }
@@ -118,20 +119,46 @@ const GroupHome: React.FC = () => {
                     <p className="title is-4">あなたの残高</p>
                     <p className="subtitle is-6">{groupInfo.balance}</p>
                   </div>
+                  {/* <div className="my-custom-button block">
+                    <button
+                      className="my-custom-button button is-fullwidth"
+                      onClick={() => navigate("/GroupList")}
+                    >
+                      グループ選択画面に戻る
+                    </button>
+                  </div> */}
                   {/* 商品リストをカード形式で表示 */}
                   <div className="box">
                     <h2 className="title is-4">あなたにおすすめの商品</h2>
                     {items.length > 0 ? (
                       items.map(item => (
-                        <div key={item.uuid} className="media">
-                          <div className="media-content">
-                            <div className="content">
-                              <p className="title is-6">{item.name}</p>
-                              <p className="subtitle is-7">
-                                {item.selling_price}円
-                              </p>
+                        <div
+                          key={item.uuid}
+                          className="media"
+                          onClick={() =>
+                            navigate(
+                              `/ConfirmPurchasingItem?barcode=${item.barcode}`
+                            )
+                          }
+                        >
+                          <article className="media">
+                            <div className="media-left">
+                              <figure className="image is-64x64">
+                                <img
+                                  src={`${item.item_thumbnail.base64}`}
+                                  alt={item.name}
+                                />
+                              </figure>
                             </div>
-                          </div>
+                            <div className="media-content">
+                              <div className="content">
+                                <p className="title is-6">{item.name}</p>
+                                <p className="subtitle is-7">
+                                  {item.selling_price}円
+                                </p>
+                              </div>
+                            </div>
+                          </article>
                         </div>
                       ))
                     ) : (
