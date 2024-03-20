@@ -98,7 +98,7 @@ const ItemAdd: React.FC = () => {
                   <div className="my-custom-button block">
                     <button
                       className="my-custom-button button is-fullwidth"
-                      onClick={() => navigate("/ItemEditList")}
+                      onClick={() => navigate("/ItemManage")}
                     >
                       リストから編集する
                     </button>
