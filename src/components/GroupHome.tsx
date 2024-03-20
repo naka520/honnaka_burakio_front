@@ -94,6 +94,7 @@ const GroupHome: React.FC = () => {
         },
       })
       .then(response => {
+        console.log(response.data);
         setItems(response.data);
       })
       .catch(error => {

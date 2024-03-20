@@ -175,7 +175,14 @@ const ConfirmPurchasingItem: React.FC = () => {
       })
       .catch(error => {
         console.error("APIリクエストエラー:", error);
-        navigate("/SignIn");
+        if (error.response && error.response.status === 404) {
+          alert("グループにスキャンした商品が存在しません。");
+          navigate("/SignIn");
+        } else {
+          // その他のエラー処理
+          console.error("API request error:", error);
+          navigate("/SignIn");
+        }
       });
     const balance_endpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}`;
     axios
