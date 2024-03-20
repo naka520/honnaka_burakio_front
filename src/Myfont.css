@@ -7,3 +7,10 @@
 .myComponentClass {
   font-family: "Hanazome", sans-serif;
 }
+
+body,
+button,
+input,
+textarea {
+  font-family: "Hanazome", sans-serif;
+}

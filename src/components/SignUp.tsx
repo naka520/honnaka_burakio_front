@@ -52,11 +52,11 @@ const SignUp: React.FC = () => {
                 ちいみせ
               </h1>
               <form onSubmit={handleCheck}>
-                <div className="field">
+                <div className="field myComponentClass">
                   <label className="label" htmlFor="username">
                     ユーザーID
                   </label>
-                  <div className="control">
+                  <div className="control myComponentClass">
                     <input
                       id="username"
                       name="username"
@@ -70,11 +70,11 @@ const SignUp: React.FC = () => {
                     />
                   </div>
                 </div>
-                <div className="field">
+                <div className="field myComponentClass">
                   <label className="label" htmlFor="password">
                     パスワード
                   </label>
-                  <div className="control">
+                  <div className="control myComponentClass">
                     <input
                       id="password"
                       name="password"
@@ -88,11 +88,11 @@ const SignUp: React.FC = () => {
                     />
                   </div>
                 </div>
-                <div className="field">
+                <div className="field myComponentClass">
                   <label className="label" htmlFor="display_name">
                     表示名
                   </label>
-                  <div className="control">
+                  <div className="control myComponentClass">
                     <input
                       id="display_name"
                       name="display_name"
@@ -110,13 +110,13 @@ const SignUp: React.FC = () => {
                   <div className="control">
                     <button
                       type="submit"
-                      className="button is-fullwidth is-dark"
+                      className="button is-fullwidth is-dark myComponentClass"
                     >
                       サインアップ
                     </button>
                   </div>
                 </div>
-                <div className="has-text-centered">
+                <div className="has-text-centered myComponentClass">
                   <Link to="/SignIn">サインインはこちら</Link>
                 </div>
               </form>
