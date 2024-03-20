@@ -361,60 +361,56 @@ const ConfirmAddingItem: React.FC = () => {
                   </section>
                   <div className="card">
                     <div className="card-content">
-                      <div className="media">
-                        <div className="media-left">
-                          <input
-                            type="file"
-                            accept="image/png"
-                            capture="environment"
-                            // style={{ display: 'none' }}
-                            ref={inputRef}
-                            onChange={handleImageChange}
+                      <input
+                        type="file"
+                        accept="image/png"
+                        capture="environment"
+                        // style={{ display: 'none' }}
+                        ref={inputRef}
+                        onChange={handleImageChange}
+                      />
+                      <figure className="image is-48x48">
+                        {newItem.new_item_thumbnail.base64 ? (
+                          <img
+                            src={`${newItem.new_item_thumbnail.base64}`}
+                            alt="Item Thumbnail"
                           />
-                          <figure className="image is-48x48">
-                            {newItem.new_item_thumbnail.base64 ? (
-                              <img
-                                src={`${newItem.new_item_thumbnail.base64}`}
-                                alt="Item Thumbnail"
-                              />
-                            ) : (
-                              <span>Tap to add a photo</span>
-                            )}
-                          </figure>
-                        </div>
-                        <div className="media-content">
-                          <input
-                            className="input"
-                            type="text"
-                            name="name"
-                            value={newItem.name}
-                            onChange={e => {
-                              handleNameChange(e.target.value);
-                            }}
-                            placeholder="商品名"
-                          />
-                          <input
-                            className="input"
-                            type="number"
-                            name="cost_price"
-                            value={newItem.cost_price}
-                            onChange={e => {
-                              handleCostPriceChange(Number(e.target.value));
-                            }}
-                            placeholder="原価"
-                          />
-                          <input
-                            className="input"
-                            type="number"
-                            name="selling_price"
-                            value={newItem.selling_price}
-                            onChange={e => {
-                              handleSellingPriceChange(Number(e.target.value));
-                            }}
-                            placeholder="売価"
-                          />
-                        </div>
-                      </div>
+                        ) : (
+                          <span>Tap to add a photo</span>
+                        )}
+                      </figure>
+                
+  
+                      <input
+                        className="input"
+                        type="text"
+                        name="name"
+                        value={newItem.name}
+                        onChange={e => {
+                          handleNameChange(e.target.value);
+                        }}
+                        placeholder="商品名"
+                      />
+                      <input
+                        className="input"
+                        type="number"
+                        name="cost_price"
+                        value={newItem.cost_price}
+                        onChange={e => {
+                          handleCostPriceChange(Number(e.target.value));
+                        }}
+                        placeholder="原価"
+                      />
+                      <input
+                        className="input"
+                        type="number"
+                        name="selling_price"
+                        value={newItem.selling_price}
+                        onChange={e => {
+                          handleSellingPriceChange(Number(e.target.value));
+                        }}
+                        placeholder="売価"
+                      />
                     </div>
                   </div>
                   <section className="section">
