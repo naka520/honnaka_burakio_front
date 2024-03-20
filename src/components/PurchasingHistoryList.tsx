@@ -97,68 +97,72 @@ const PurchasingHistoryList: React.FC = () => {
     <div className="container">
       <section className="section">
         <div className="columns is-centered">
-          <div className="column is-half my-custom-background">
-            <div className="level-left">
-              <h1 className="title">購入履歴</h1>
-            </div>
-            {purchaseDates.map((created_at: string) => (
-              <div key={created_at}>
-                <h3 className="subtitle">{created_at}</h3>
-                {itemPurchasingHistories
-                  .filter(
-                    itemPurchasingHistory =>
-                      Intl.DateTimeFormat("ja-JP").format(
-                        new Date(itemPurchasingHistory.created_at)
-                      ) === created_at
-                  )
-                  .map(filteredItemPurchasingHistory => (
-                    <div
-                      key={filteredItemPurchasingHistory.uuid}
-                      className="box"
-                    >
-                      <article className="media">
-                        <div className="media-left">
-                          <figure className="image is-64x64">
-                            {/* 仮の画像表示。適切なimgタグに修正してください */}
-                            <img
-                              src={
-                                filteredItemPurchasingHistory
-                                  .item_expiration_date.item.item_thumbnail
-                                  .base64
-                              }
-                              alt={
-                                filteredItemPurchasingHistory
-                                  .item_expiration_date.item.name
-                              }
-                            />
-                          </figure>
+          <div className="column is-half ">
+            <div className="card">
+              <div className="card-content">
+                <div className="level-left">
+                  <h1 className="title">購入履歴</h1>
+                </div>
+                {purchaseDates.map((created_at: string) => (
+                  <div key={created_at}>
+                    <h3 className="subtitle">{created_at}</h3>
+                    {itemPurchasingHistories
+                      .filter(
+                        itemPurchasingHistory =>
+                          Intl.DateTimeFormat("ja-JP").format(
+                            new Date(itemPurchasingHistory.created_at)
+                          ) === created_at
+                      )
+                      .map(filteredItemPurchasingHistory => (
+                        <div
+                          key={filteredItemPurchasingHistory.uuid}
+                          className="box"
+                        >
+                          <article className="media">
+                            <div className="media-left">
+                              <figure className="image is-64x64">
+                                {/* 仮の画像表示。適切なimgタグに修正してください */}
+                                <img
+                                  src={
+                                    filteredItemPurchasingHistory
+                                      .item_expiration_date.item.item_thumbnail
+                                      .base64
+                                  }
+                                  alt={
+                                    filteredItemPurchasingHistory
+                                      .item_expiration_date.item.name
+                                  }
+                                />
+                              </figure>
+                            </div>
+                            <div className="media-content">
+                              <div className="content">
+                                <p>
+                                  <strong>
+                                    {
+                                      filteredItemPurchasingHistory
+                                        .item_expiration_date.item.name
+                                    }
+                                  </strong>{" "}
+                                  <small>
+                                    {
+                                      filteredItemPurchasingHistory
+                                        .item_expiration_date.item.selling_price
+                                    }
+                                    円
+                                  </small>
+                                  {/* <small>{filteredItemPurchasingHistory.item_expiration_date.uuid}円</small> */}
+                                </p>
+                              </div>
+                            </div>
+                          </article>
                         </div>
-                        <div className="media-content">
-                          <div className="content">
-                            <p>
-                              <strong>
-                                {
-                                  filteredItemPurchasingHistory
-                                    .item_expiration_date.item.name
-                                }
-                              </strong>{" "}
-                              <small>
-                                {
-                                  filteredItemPurchasingHistory
-                                    .item_expiration_date.item.selling_price
-                                }
-                                円
-                              </small>
-                              {/* <small>{filteredItemPurchasingHistory.item_expiration_date.uuid}円</small> */}
-                            </p>
-                          </div>
-                        </div>
-                      </article>
-                    </div>
-                  ))}
+                      ))}
+                  </div>
+                ))}
+                <Footer />
               </div>
-            ))}
-            <Footer />
+            </div>
           </div>
         </div>
       </section>
