@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import Footer from './Footer'
+import Footer from "./Footer";
 import "bulma/css/bulma.min.css";
 import {
   BrowserMultiFormatReader,
@@ -79,7 +79,7 @@ const ItemAdd: React.FC = () => {
             <div className="card">
               <div className="card-content">
                 <div className="content">
-                  <h2 className="title">商品を購入</h2>
+                  <h2 className="title">商品を編集</h2>
                   <div className="box has-text-centered">
                     <video
                       ref={videoRef}
