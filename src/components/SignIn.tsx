@@ -57,7 +57,7 @@ const SignIn: React.FC = () => {
                 ちいみせ
               </h1>
               <form onSubmit={handleCheck}>
-                <div className="field">
+                <div className="field myComponentClass">
                   <label className="label" htmlFor="userId">
                     ユーザーID
                   </label>
@@ -75,11 +75,11 @@ const SignIn: React.FC = () => {
                     />
                   </div>
                 </div>
-                <div className="field">
+                <div className="field myComponentClass">
                   <label className="label" htmlFor="password">
                     パスワード
                   </label>
-                  <div className="control">
+                  <div className="control myComponentClass">
                     <input
                       id="password"
                       name="password"
@@ -94,16 +94,16 @@ const SignIn: React.FC = () => {
                   </div>
                 </div>
                 <div className="field">
-                  <div className="control">
+                  <div className="control myComponentClass">
                     <button
                       type="submit"
-                      className="button is-fullwidth is-dark"
+                      className="button is-fullwidth is-dark myComponentClass"
                     >
                       サインイン
                     </button>
                   </div>
                 </div>
-                <div className="has-text-centered">
+                <div className="has-text-centered myComponentClass">
                   <Link to="/">サインアップはこちら</Link>
                 </div>
               </form>
