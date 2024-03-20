@@ -1,6 +1,7 @@
 import React from "react";
 import "bulma/css/bulma.min.css";
 import { useNavigate } from "react-router-dom";
+import "../Myfont.css";
 
 const Footer: React.FC = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="my-custom-button  card-footer is-flex is-justify-content-space-around">
+    <footer className="myComponentClass my-custom-button  card-footer is-flex is-justify-content-space-around">
       <button className="button" onClick={navigateToHome}>
         ホーム
       </button>
