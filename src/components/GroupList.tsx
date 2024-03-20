@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../Myfont.css";
 
 interface Groups {
   uuid: string;
@@ -77,7 +78,7 @@ const GroupList: React.FC = () => {
           <div className="column is-half">
             <div className="card">
               <div className="card-content">
-                <div className="level-left">
+                <div className="level-left myComponentClass">
                   <h1 className="title">グループ一覧</h1>
                 </div>
                 <div className="level-right">
@@ -101,7 +102,7 @@ const GroupList: React.FC = () => {
                       id="dropdown-menu"
                       role="menu"
                     >
-                      <div className="dropdown-content">
+                      <div className="dropdown-content myComponentClass">
                         <a
                           href="#"
                           className="dropdown-item"
@@ -111,7 +112,7 @@ const GroupList: React.FC = () => {
                         </a>
                         <a
                           href="#"
-                          className="dropdown-item"
+                          className="dropdown-item myComponentClass"
                           onClick={handleJoinGroup}
                         >
                           グループに参加する
@@ -121,7 +122,7 @@ const GroupList: React.FC = () => {
                   </div>
                 </div>
 
-                <div>
+                <div className="myComponentClass">
                   <h2 className="title is-4">あなたが管理しているグループ</h2>
                   {managedGroups.length > 0 ? (
                     managedGroups.map(group => (
@@ -141,7 +142,7 @@ const GroupList: React.FC = () => {
                   )}
                 </div>
 
-                <div>
+                <div className="myComponentClass">
                   <h2 className="title is-4">あなたが参加しているグループ</h2>
                   {joinedGroups.length > 0 ? (
                     joinedGroups.map(group => (
