@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
-import ColorPicker from './ColorPicker';
+import ColorPicker from "./ColorPicker";
 import axios from "axios";
 // Footerコンポーネントのインポートが必要です。
 
@@ -44,25 +44,29 @@ interface ItemGroup {
 }
 
 interface ItemGroupWithoutItem {
-    name: string;
-    color: string;
+  name: string;
+  color: string;
 }
 
 const ItemManage: React.FC = () => {
-  const initialItemGroupWithoutItem:ItemGroupWithoutItem = {
-    name:"",
-    color:""
+  const initialItemGroupWithoutItem: ItemGroupWithoutItem = {
+    name: "",
+    color: "",
   };
 
-  const handleSetItemGroupWithoutItem = (new_name:string,new_color:string) =>{
-    const newItemGroupWithoutItem:ItemGroupWithoutItem ={
-      name:new_name,
-      color:new_color
+  const handleSetItemGroupWithoutItem = (
+    new_name: string,
+    new_color: string
+  ) => {
+    const newItemGroupWithoutItem: ItemGroupWithoutItem = {
+      name: new_name,
+      color: new_color,
     };
-    setItemGroupWithoutItem(newItemGroupWithoutItem)
-  }
+    setItemGroupWithoutItem(newItemGroupWithoutItem);
+  };
   const [itemGroups, setItemGroups] = useState<ItemGroup[]>([]);
-  const [itemGroupWithoutItem, setItemGroupWithoutItem] = useState<ItemGroupWithoutItem>(initialItemGroupWithoutItem);
+  const [itemGroupWithoutItem, setItemGroupWithoutItem] =
+    useState<ItemGroupWithoutItem>(initialItemGroupWithoutItem);
   const navigate = useNavigate();
   const [isSortMenuActive, setIsSortMenuActive] = useState(false);
 
@@ -73,6 +77,23 @@ const ItemManage: React.FC = () => {
       items: [...group.items].sort((a, b) => {
         if (sortType === "価格順") {
           return a.selling_price - b.selling_price;
+        }
+        if (sortType === "消費期限順") {
+          if (
+            a.item_expiration_dates[0].expiration_date <=
+            b.item_expiration_dates[0].expiration_date
+          ) {
+            if (
+              a.item_expiration_dates[0].expiration_date ===
+              b.item_expiration_dates[0].expiration_date
+            ) {
+              return 0;
+            }
+
+            return -1;
+          } else {
+            return 1;
+          }
         }
         // 他のソート条件があればここに追加
         return 0;
@@ -94,36 +115,32 @@ const ItemManage: React.FC = () => {
     if (!shouldDelete) {
       console.log("削除をキャンセルしました");
     } else {
+      const accessToken = localStorage.getItem("access_token");
+      const groupUuid = localStorage.getItem("selectedGroupUuid");
+      const itemDeleteEndpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}/items/${itemUuid}`;
 
-        const accessToken = localStorage.getItem("access_token");
-        const groupUuid = localStorage.getItem("selectedGroupUuid");
-        const itemDeleteEndpointUrl = 
-        `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}/items/${itemUuid}`;
+      if (!accessToken || !groupUuid || !itemUuid) {
+        console.error("All fields are required");
+        return;
+      }
 
-        if(!accessToken || !groupUuid ||!itemUuid){
-            console.error("All fields are required");
-            return;
-        }
-
-        axios
+      axios
         .delete(itemDeleteEndpointUrl, {
-            headers: {
+          headers: {
             Authorization: `Bearer ${accessToken}`,
-            },
+          },
         })
         .then(response => {
-            console.log("Deleteだぜ！");
-            console.log(response.data);
-            navigate("/SignUp");
+          console.log("Deleteだぜ！");
+          console.log(response.data);
+          navigate("/SignUp");
         })
         .catch(error => {
-            console.error("API request error:", error);
-            navigate("/login");
+          console.error("API request error:", error);
+          navigate("/login");
         });
-  
-      }
-    
-  }
+    }
+  };
   //modalまわり
   const [isOpen, setIsOpen] = useState(false);
 
@@ -138,47 +155,47 @@ const ItemManage: React.FC = () => {
   //ItemGroupMakeまわり
 
   const handleNameChange = (newName: string) => {
-    const newItemGroupWithoutItem: ItemGroupWithoutItem = structuredClone(itemGroupWithoutItem);
+    const newItemGroupWithoutItem: ItemGroupWithoutItem =
+      structuredClone(itemGroupWithoutItem);
     newItemGroupWithoutItem.name = newName;
 
     setItemGroupWithoutItem(newItemGroupWithoutItem);
   };
 
   const handleColorChange = (newColor: string) => {
-    const newItemGroupWithoutItem: ItemGroupWithoutItem = structuredClone(itemGroupWithoutItem);
+    const newItemGroupWithoutItem: ItemGroupWithoutItem =
+      structuredClone(itemGroupWithoutItem);
     newItemGroupWithoutItem.color = newColor;
 
     setItemGroupWithoutItem(newItemGroupWithoutItem);
-
   };
 
-  const handleCreateItemGroupClick = (event:React.FormEvent) =>{
+  const handleCreateItemGroupClick = (event: React.FormEvent) => {
     event.preventDefault();
 
     const accessToken = localStorage.getItem("access_token");
     const groupUuid = localStorage.getItem("selectedGroupUuid");
-    const itemGroupsEndpointUrl=
-    `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}/item_groups/`;
+    const itemGroupsEndpointUrl = `https://brachiocup-honnaka-backend.azurewebsites.net/api/v1/me/groups/${groupUuid}/item_groups/`;
 
     const requestData = itemGroupWithoutItem;
 
     axios
-    .post(itemGroupsEndpointUrl, requestData, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-    .then(response => {
-      console.log("POSTだぜ！");
-      console.log(response.data);
-      navigate("/ItemManage");
-      window.location.reload();
-    })
-    .catch(error => {
-      console.error("API request error:", error);
-      navigate("/Signin");
-    });
-  }
+      .post(itemGroupsEndpointUrl, requestData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(response => {
+        console.log("POSTだぜ！");
+        console.log(response.data);
+        navigate("/ItemManage");
+        window.location.reload();
+      })
+      .catch(error => {
+        console.error("API request error:", error);
+        navigate("/Signin");
+      });
+  };
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -239,21 +256,26 @@ const ItemManage: React.FC = () => {
                     </button>
                   </div>
                   <div className="control">
-                    <div >
-                      
+                    <div>
                       <button
                         className="my-custom-button button is-fullwidth mt-4"
                         onClick={openModal}
                       >
                         商品グループの作成
                       </button>
-                      
-                      
+
                       <div className={`modal ${isOpen ? "is-active" : ""}`}>
-                        <div className="modal-background" onClick={closeModal}></div>
+                        <div
+                          className="modal-background"
+                          onClick={closeModal}
+                        ></div>
                         <div className="modal-content">
                           <div className="box">
-                            <button className="delete" aria-label="close" onClick={closeModal}></button>
+                            <button
+                              className="delete"
+                              aria-label="close"
+                              onClick={closeModal}
+                            ></button>
                             <div className="field">
                               <label className="label">商品グループ名</label>
                               <div className="control">
@@ -262,7 +284,9 @@ const ItemManage: React.FC = () => {
                                   type="text"
                                   placeholder="商品グループ名を入力してください"
                                   value={itemGroupWithoutItem.name}
-                                  onChange={(event) => {handleNameChange(event.target.value);}}
+                                  onChange={event => {
+                                    handleNameChange(event.target.value);
+                                  }}
                                 />
                               </div>
                             </div>
@@ -277,7 +301,7 @@ const ItemManage: React.FC = () => {
                                 className="my-custom-button button is-fullwidth mt-4"
                                 onClick={handleCreateItemGroupClick}
                               >
-                              商品グループを作成する
+                                商品グループを作成する
                               </button>
                             </div>
                           </div>
@@ -285,7 +309,7 @@ const ItemManage: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div
                     className={`dropdown ${
                       isSortMenuActive ? "is-active" : ""
@@ -312,11 +336,16 @@ const ItemManage: React.FC = () => {
                     <div className="dropdown-menu" id="sort-menu" role="menu">
                       <div className="dropdown-content">
                         <a
-                          href="#"
                           className="dropdown-item"
                           onClick={() => handleSortSelection("価格順")}
                         >
                           価格順
+                        </a>
+                        <a
+                          className="dropdown-item"
+                          onClick={() => handleSortSelection("消費期限順")}
+                        >
+                          消費期限順
                         </a>
                         {/* 他のソートオプションが必要な場合はここに追加 */}
                       </div>
@@ -331,15 +360,12 @@ const ItemManage: React.FC = () => {
                         {group.name}
                       </h3>
                       {group.items.map(item => (
-                        <div
-                          key={item.uuid}
-                          className="box"
-                        >
+                        <div key={item.uuid} className="box">
                           <article className="media">
                             <div className="media-left">
                               <figure className="image is-64x64">
                                 <img
-                                  src={`data:image/png;base64,${item.item_thumbnail.base64}`}
+                                  src={`${item.item_thumbnail.base64}`}
                                   alt={item.name}
                                 />
                               </figure>
@@ -353,10 +379,10 @@ const ItemManage: React.FC = () => {
                               </div>
                             </div>
                             <div className="media-right">
-                                <button 
+                              <button
                                 className="delete"
-                                onClick={(e) =>handleItemDelete(e, item.uuid)}
-                                ></button>
+                                onClick={e => handleItemDelete(e, item.uuid)}
+                              ></button>
                             </div>
                           </article>
                         </div>
